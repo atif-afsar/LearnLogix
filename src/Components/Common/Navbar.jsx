@@ -82,12 +82,9 @@ export default function Navbar() {
               <img
                 src="/images/logo.png"
                 alt="Logo"
-                className="h-10 md:h-10 w-auto object-contain rounded-sm"
+                className="h-12 md:h-12 w-auto object-contain rounded-sm"
               />
               <div className="hidden sm:block">
-                <p className="text-yellow-400 text-xs">
-                 Learn Anytime. Learn Anywhere.
-                </p>
               </div>
             </motion.div>
 
@@ -112,9 +109,6 @@ export default function Navbar() {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
-              <button className="text-white text-sm hover:text-yellow-400">
-                Log In
-              </button>
               <button className="bg-yellow-400 text-black font-semibold px-5 py-2 rounded-lg hover:bg-yellow-500">
                 GET STARTED
               </button>
