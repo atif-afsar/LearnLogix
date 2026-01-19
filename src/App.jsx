@@ -11,6 +11,7 @@ import About from "./Page/About";
 import Courses from "./Page/Courses";
 import MobileAppSection from "./Components/MobileApp/MobileAppSection";
 import LawAspirantsSection from "./Components/LawAspirants/LawAspirantsSection";
+import Contact from "./Page/Contact";
 
 const App = () => {
   return (
@@ -24,8 +25,7 @@ const App = () => {
         <Route path="/youtube" element={<YouTubeSection />} />
         <Route path="/mobile-app" element={<MobileAppSection />} />
         <Route path="/law" element={<LawAspirantsSection />} />
-
-
+        <Route path="/contact" element={<Contact />} />
 
 
       </Routes>

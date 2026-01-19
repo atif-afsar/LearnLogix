@@ -19,7 +19,7 @@ export default function Navbar() {
     { name: "YouTube", to: "/youtube" },
     { name: "Mobile App", to: "/mobile-app" },
     { name: "Law Aspirants", to: "/law" },
-    { name: "Contact Us", to: "/#contact" },
+    { name: "Contact Us", to: "/contact" },
   ];
 
   const navVariants = {
