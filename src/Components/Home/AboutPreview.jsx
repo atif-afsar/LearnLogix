@@ -39,7 +39,7 @@ export default function AboutPreview() {
 
             <motion.a
               whileHover={{ x: 6 }}
-              href="#about"
+              href="/about"
               className="inline-flex items-center gap-2 mt-8
                          text-yellow-400 font-semibold"
             >

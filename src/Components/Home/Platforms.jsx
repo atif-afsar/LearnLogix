@@ -51,7 +51,7 @@ export default function Platforms() {
             </p>
 
             <a
-              href="#youtube"
+              href="https://www.youtube.com/@Learn_logix"
               className="inline-flex items-center justify-center
                          bg-red-500 text-white font-semibold
                          px-6 py-3 rounded-xl
@@ -85,7 +85,7 @@ export default function Platforms() {
             </p>
 
             <a
-              href="#app"
+              href="https://play.google.com/store/apps/details?id=co.ted.gjznu"
               className="inline-flex items-center justify-center
                          bg-yellow-400 text-black font-semibold
                          px-6 py-3 rounded-xl

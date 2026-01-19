@@ -51,7 +51,7 @@ export default function FinalCTA() {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center justify-center gap-2
                        bg-yellow-400 text-black font-semibold
                        px-8 py-4 rounded-xl
@@ -66,7 +66,7 @@ export default function FinalCTA() {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="#app"
+            href="/mobile-app"
             className="inline-flex items-center justify-center gap-2
                        border border-white/20 text-white
                        px-8 py-4 rounded-xl

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, Award, Scale } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const programs = [
   {
@@ -116,6 +117,7 @@ export default function Programs() {
           transition={{ delay: 0.2 }}
           className="text-center mt-14"
         >
+        <Link to="/courses">
           <button
             className="inline-flex items-center justify-center
                        bg-yellow-400 text-black font-semibold
@@ -125,6 +127,7 @@ export default function Programs() {
           >
             Explore All Programs
           </button>
+        </Link>
         </motion.div>
       </div>
     </section>

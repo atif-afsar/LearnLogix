@@ -73,6 +73,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-5"
         >
+        <a href="https://play.google.com/store/apps/details?id=co.ted.gjznu" target="_blank" rel="noopener noreferrer">
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(251, 191, 36, 0.4)" }}
             whileTap={{ scale: 0.95 }}
@@ -83,13 +84,16 @@ export default function HeroSection() {
                        shadow-xl shadow-yellow-400/30
                        overflow-hidden"
           >
+          
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
             </svg>
             Download App
             <div className="absolute inset-0 -z-10 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
           </motion.button>
+          </a>
 
+          <a href="https://www.youtube.com/@Learn_logix" target="_blank" rel="noopener noreferrer">
           <motion.button
             whileHover={{ scale: 1.05, borderColor: "rgb(251, 191, 36)" }}
             whileTap={{ scale: 0.95 }}
@@ -105,6 +109,7 @@ export default function HeroSection() {
             </svg>
             Watch on YouTube
           </motion.button>
+          </a>
         </motion.div>
 
         {/* Stats or Trust Indicators */}

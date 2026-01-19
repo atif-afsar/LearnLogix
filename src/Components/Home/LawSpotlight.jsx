@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Scale, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function LawSpotlight() {
   return (
@@ -51,7 +52,7 @@ export default function LawSpotlight() {
 
             <motion.a
               whileHover={{ x: 6 }}
-              href="#law"
+              href="/law"
               className="inline-flex items-center gap-2 mt-8
                          text-yellow-400 font-semibold"
             >
@@ -85,17 +86,17 @@ export default function LawSpotlight() {
             </p>
 
             <div className="flex gap-4">
-              <a
-                href="#law"
+              <Link
+                to="/law"
                 className="bg-yellow-400 text-black font-semibold
                            px-6 py-3 rounded-xl
                            hover:bg-yellow-500 transition"
               >
                 Explore Program
-              </a>
+              </Link>
 
               <a
-                href="#youtube"
+                href="https://www.youtube.com/@Learn_logix"
                 className="border border-white/20 text-white
                            px-6 py-3 rounded-xl
                            hover:border-yellow-400 hover:text-yellow-400 transition"

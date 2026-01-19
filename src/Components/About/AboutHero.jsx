@@ -51,14 +51,14 @@ export default function AboutHero() {
         <motion.a
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          href="#our-story"
+          href="/contact"
           className="inline-flex items-center justify-center
                      mt-10 bg-yellow-400 text-black
                      font-semibold px-8 py-4 rounded-xl
                      hover:bg-yellow-500 transition
                      shadow-lg shadow-yellow-400/30"
         >
-          Our Story
+         Contact Now
         </motion.a>
       </div>
     </section>
