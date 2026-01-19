@@ -4,7 +4,7 @@ import { Youtube, Instagram, Facebook, Mail, Phone } from "lucide-react";
 export default function Footer() {
   return (
     <footer className="bg-black border-t border-white/10 text-white">
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="max-w-7xl mx-auto px-6 py-22">
         
         {/* Top Grid */}
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
@@ -82,7 +82,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+        <div className="mt-10 pt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
           <p>© {new Date().getFullYear()} LearnLogix. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#privacy" className="hover:text-yellow-400 transition">Privacy Policy</a>
