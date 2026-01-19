@@ -9,6 +9,7 @@ import YouTubeSection from "./Components/Youtube/YouTubeSection";
 import Home from "./Page/Home";
 import About from "./Page/About";
 import Courses from "./Page/Courses";
+import MobileAppSection from "./Components/MobileApp/MobileAppSection";
 
 const App = () => {
   return (
@@ -20,6 +21,8 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/youtube" element={<YouTubeSection />} />
+        <Route path="/mobile-app" element={<MobileAppSection />} />
+
 
       </Routes>
 
