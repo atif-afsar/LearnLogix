@@ -15,7 +15,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", to: "/" },
     { name: "About", to: "/about" },
-    { name: "Courses", to: "/#courses" },
+    { name: "Courses", to: "/courses" },
     { name: "YouTube", to: "/#youtube" },
     { name: "Mobile App", to: "/#mobile" },
     { name: "Law Aspirants", to: "/#law" },

@@ -6,6 +6,7 @@ import Footer from "./Components/Common/Footer";
 
 import Home from "./Page/Home";
 import About from "./Page/About";
+import Courses from "./Page/Courses";
 
 const App = () => {
   return (
@@ -15,6 +16,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/courses" element={<Courses />} />
+
       </Routes>
 
       <Footer />
