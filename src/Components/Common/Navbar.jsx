@@ -16,7 +16,7 @@ export default function Navbar() {
     { name: "Home", to: "/" },
     { name: "About", to: "/about" },
     { name: "Courses", to: "/courses" },
-    { name: "YouTube", to: "/#youtube" },
+    { name: "YouTube", to: "/youtube" },
     { name: "Mobile App", to: "/#mobile" },
     { name: "Law Aspirants", to: "/#law" },
     { name: "Contact Us", to: "/#contact" },

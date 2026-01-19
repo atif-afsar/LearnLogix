@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./Components/Common/Navbar";
 import Footer from "./Components/Common/Footer";
+import YouTubeSection from "./Components/Youtube/YouTubeSection";
+
 
 import Home from "./Page/Home";
 import About from "./Page/About";
@@ -17,6 +19,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/youtube" element={<YouTubeSection />} />
 
       </Routes>
 
