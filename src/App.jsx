@@ -1,16 +1,25 @@
-import React from 'react'
-import Navbar from './Components/Common/Navbar'
-import Home from './Page/Home'
-import Footer from './Components/Common/Footer'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from "./Components/Common/Navbar";
+import Footer from "./Components/Common/Footer";
+
+import Home from "./Page/Home";
+import About from "./Page/About";
 
 const App = () => {
   return (
-    <div>
-    <Navbar />
-    <Home />
-    <Footer />
-    </div>
-  )
-}
+    <>
+      <Navbar />
 
-export default App
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+
+      <Footer />
+    </>
+  );
+};
+
+export default App;

@@ -14,6 +14,8 @@ export default function HeroSection() {
         }} />
       </div>
 
+      
+
       {/* Background Glow Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-yellow-400/10 rounded-full blur-[150px]" />
