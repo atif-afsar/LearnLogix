@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+
+// Mock NavLink component since we don't have react-router-dom
+const NavLink = ({ to, children, className, onClick }) => {
+  const isActive = to === "/"; // Mock active state for demo
+  const computedClassName = typeof className === 'function' 
+    ? className({ isActive }) 
+    : className;
+  
+  return (
+    <a href={to} className={computedClassName} onClick={onClick}>
+      {children}
+    </a>
+  );
+};
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,13 +80,13 @@ export default function Navbar() {
         initial="hidden"
         animate="visible"
         variants={navVariants}
-        className={`fixed top-0 inset-x-0 z-50 transition-all ${
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-black/90 backdrop-blur-md shadow-lg"
-            : "bg-black"
+            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
+            : "bg-white border-b border-gray-100"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
 
             {/* LOGO */}
@@ -81,7 +95,7 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 src="/images/logo.png"
                 alt="LearnLogix"
-                className="h-12 w-auto object-contain rounded-sm"
+                className="h-12 md:h-14 w-auto object-contain"
               />
             </NavLink>
 
@@ -99,11 +113,11 @@ export default function Navbar() {
                   <NavLink
                     to={link.to}
                     className={({ isActive }) =>
-                      `px-3 py-2 text-sm font-medium relative transition
+                      `px-3 py-2 text-sm font-medium rounded-lg transition-all
                        ${
                          isActive
-                           ? "text-yellow-400"
-                           : "text-white hover:text-yellow-400"
+                           ? "text-[#FDC700] bg-[#FDC700]/10"
+                           : "text-gray-700 hover:text-[#FDC700] hover:bg-gray-50"
                        }`
                     }
                   >
@@ -114,24 +128,29 @@ export default function Navbar() {
             </div>
 
             {/* DESKTOP CTA */}
-            <div className="hidden md:flex">
-              <NavLink
-                to="/contact"
-                className="bg-yellow-400 text-black font-semibold
-                           px-5 py-2 rounded-lg
-                           hover:bg-yellow-500 transition"
-              >
-                GET STARTED
-              </NavLink>
+            <div className="hidden lg:flex">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <NavLink
+                  to="/contact"
+                  className="bg-gray-900 text-white font-semibold
+                             px-6 py-2.5 rounded-lg
+                             hover:bg-gray-800 transition-colors shadow-md
+                             hover:shadow-lg"
+                >
+                  GET STARTED
+                </NavLink>
+              </motion.div>
             </div>
 
             {/* MOBILE TOGGLE */}
-            <button
+            <motion.button
+              whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(true)}
-              className="md:hidden h-10 w-10 text-white text-2xl"
+              className="lg:hidden h-10 w-10 flex items-center justify-center
+                         text-gray-900 hover:bg-gray-100 rounded-lg transition"
             >
-              ☰
-            </button>
+              <Menu size={24} />
+            </motion.button>
           </div>
         </div>
       </motion.nav>
@@ -146,7 +165,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/60 z-40 md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
             />
 
             {/* Fullscreen Drawer */}
@@ -155,10 +174,10 @@ export default function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed inset-0 bg-black z-50 md:hidden flex flex-col"
+              className="fixed inset-0 bg-white z-50 lg:hidden flex flex-col"
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+              <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200 bg-gray-50">
                 <NavLink to="/" onClick={() => setIsOpen(false)}>
                   <img
                     src="/images/logo.png"
@@ -167,16 +186,18 @@ export default function Navbar() {
                   />
                 </NavLink>
 
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
                   onClick={() => setIsOpen(false)}
-                  className="text-white text-2xl"
+                  className="w-10 h-10 flex items-center justify-center
+                             text-gray-700 hover:bg-gray-200 rounded-lg transition"
                 >
-                  ✕
-                </button>
+                  <X size={24} />
+                </motion.button>
               </div>
 
               {/* Links */}
-              <div className="flex-1 overflow-y-auto px-6 py-8 space-y-2">
+              <div className="flex-1 overflow-y-auto px-6 py-8 space-y-1">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
@@ -189,11 +210,11 @@ export default function Navbar() {
                       to={link.to}
                       onClick={() => setIsOpen(false)}
                       className={({ isActive }) =>
-                        `block text-xl font-medium py-4 border-b border-white/5 transition
+                        `block text-lg font-medium py-4 px-4 rounded-lg transition-all
                          ${
                            isActive
-                             ? "text-yellow-400"
-                             : "text-white hover:text-yellow-400"
+                             ? "text-[#FDC700] bg-[#FDC700]/10"
+                             : "text-gray-700 hover:text-[#FDC700] hover:bg-gray-50"
                          }`
                       }
                     >
@@ -204,12 +225,11 @@ export default function Navbar() {
               </div>
 
               {/* Bottom CTA */}
-              <div className="px-6 py-6 border-t border-white/10 space-y-3">
-               
+              <div className="px-6 py-6 border-t border-gray-200 bg-gray-50 space-y-3">
                 <NavLink
                   to="/contact"
                   onClick={() => setIsOpen(false)}
-                  className="block text-center w-full bg-yellow-400 text-black py-3 rounded-xl font-bold hover:bg-yellow-500 transition"
+                  className="block text-center w-full bg-gray-900 text-white py-3.5 rounded-lg font-bold hover:bg-gray-800 transition-colors shadow-lg"
                 >
                   GET STARTED
                 </NavLink>

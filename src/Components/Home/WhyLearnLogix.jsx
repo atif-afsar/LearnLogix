@@ -27,22 +27,22 @@ const features = [
 
 export default function WhyLearnLogix() {
   return (
-    <section className="relative bg-black text-white py-24">
+    <section className="relative bg-white py-24">
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center max-w-2xl mx-auto mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold">
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900">
             Why Students Choose{" "}
-            <span className="text-yellow-400">LearnLogix</span>
+            <span className="text-yellow-500">LearnLogix</span>
           </h2>
-          <p className="mt-4 text-gray-400">
+          <p className="mt-4 text-zinc-600">
             A smarter, simpler, and more effective way to prepare for school and competitive exams.
           </p>
         </motion.div>
@@ -56,20 +56,23 @@ export default function WhyLearnLogix() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6
-                         hover:border-yellow-400/40 transition"
+              whileHover={{ y: -8 }}
+              className="bg-white border border-zinc-200 rounded-2xl p-6
+                         shadow-sm hover:shadow-lg
+                         hover:border-yellow-400 transition-all"
             >
-              <div className="w-12 h-12 flex items-center justify-center
-                              rounded-xl bg-yellow-400/10 text-yellow-400 mb-5">
+              <div
+                className="w-12 h-12 flex items-center justify-center
+                           rounded-xl bg-yellow-100 text-yellow-500 mb-5"
+              >
                 <item.icon size={24} />
               </div>
 
-              <h3 className="text-lg font-semibold mb-2">
+              <h3 className="text-lg font-semibold text-zinc-900 mb-2">
                 {item.title}
               </h3>
 
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="text-sm text-zinc-600 leading-relaxed">
                 {item.desc}
               </p>
             </motion.div>
