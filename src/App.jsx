@@ -14,6 +14,7 @@ import MobileAppSection from "./Components/MobileApp/MobileAppSection";
 import LawAspirantsSection from "./Components/LawAspirants/LawAspirantsSection";
 import Contact from "./Page/Contact";
 import ScrollToTop from "./Components/Common/ScrollToTop";
+import PrivacyPolicy from "./Components/Common/PrivacyPolicy";
 
 const App = () => {
   return (
@@ -29,6 +30,9 @@ const App = () => {
         <Route path="/mobile-app" element={<MobileAppSection />} />
         <Route path="/law" element={<LawAspirantsSection />} />
         <Route path="/contact" element={<Contact />} />
+
+         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+         {/* <Route path="/terms-of-service" element={<TermsOfService />} /> */}
       </Routes>
 
       {/* Floating WhatsApp Button */}

@@ -12,11 +12,11 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3  mb-4">
               <img
                 src="/images/logo.png"
                 alt="LearnLogix Logo"
-                className="h-9 w-auto object-contain"
+                className="h-9 w-auto rounded-lg object-contain"
               />
            
             </div>
@@ -122,13 +122,20 @@ export default function Footer() {
           </p>
 
           <div className="flex gap-6">
-            <a href="#privacy" className="hover:text-yellow-400 transition">
-              Privacy Policy
-            </a>
-            <a href="#terms" className="hover:text-yellow-400 transition">
-              Terms of Service
-            </a>
-          </div>
+              <Link
+                to="/privacy-policy"
+                className="hover:text-yellow-400 transition"
+              >
+                Privacy Policy
+              </Link>
+
+              <Link
+                to="/terms-of-service"
+                className="hover:text-yellow-400 transition"
+              >
+                Terms of Service
+              </Link>
+            </div>
         </div>
       </div>
     </footer>
