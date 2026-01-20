@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Youtube, FileText, Lock, Trophy, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const steps = [
   {
@@ -140,6 +141,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="text-center mt-16"
         >
+        <Link to="/contact">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -151,6 +153,7 @@ export default function HowItWorks() {
             Start Your Journey Today
             <ArrowRight size={20} />
           </motion.button>
+          </Link>
         </motion.div>
       </div>
     </section>

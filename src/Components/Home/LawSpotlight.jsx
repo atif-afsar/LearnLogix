@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Scale, ArrowRight, Check } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function LawSpotlight() {
   const benefits = [
@@ -76,8 +77,8 @@ export default function LawSpotlight() {
                 </motion.div>
               ))}
             </div>
-
-            <motion.a
+              <Link to="/law">
+            <motion.div
               whileHover={{ x: 6 }}
               href="/law"
               className="inline-flex items-center gap-2 mt-10
@@ -86,7 +87,8 @@ export default function LawSpotlight() {
             >
               Start Law Preparation
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </motion.a>
+            </motion.div>
+            </Link>
           </motion.div>
 
           {/* Visual Card */}
@@ -123,7 +125,8 @@ export default function LawSpotlight() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <motion.a
+            <Link to="/law">
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="/law"
@@ -133,7 +136,8 @@ export default function LawSpotlight() {
                            shadow-md hover:shadow-lg"
               >
                 Explore Program
-              </motion.a>
+              </motion.div>
+              </Link>
 
               <motion.a
                 whileHover={{ scale: 1.05 }}

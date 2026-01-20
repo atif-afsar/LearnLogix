@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { BookOpenCheck, Target, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function AboutPreview() {
   return (
@@ -36,15 +37,16 @@ export default function AboutPreview() {
               courses. We help learners across India prepare for Commerce,
               Humanities, CUET UG/PG, and Law careers with clarity and confidence.
             </p>
-
-            <motion.a
+            <Link to="/about">
+            <motion.div
               whileHover={{ x: 6 }}
-              href="/about"
+             
               className="inline-flex items-center gap-2 mt-8
                          text-yellow-400 font-semibold"
             >
               Read More About Us →
-            </motion.a>
+            </motion.div>
+            </Link>
           </motion.div>
 
           {/* Right Cards */}

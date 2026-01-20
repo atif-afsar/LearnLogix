@@ -94,7 +94,7 @@ export default function Programs() {
                 <p className="text-sm text-gray-400 leading-relaxed">
                   {item.desc}
                 </p>
-
+                <Link to="/courses">
                 <button
                   className={`mt-6 text-sm font-medium
                     ${item.featured
@@ -104,6 +104,7 @@ export default function Programs() {
                 >
                   Learn More →
                 </button>
+                </Link>
               </div>
             </motion.div>
           ))}

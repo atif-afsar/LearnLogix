@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PhoneCall, Download, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function FinalCTA() {
   return (
@@ -48,10 +49,11 @@ export default function FinalCTA() {
           className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
         >
           {/* Contact / WhatsApp */}
-          <motion.a
+          <Link to="/contact">
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="/contact"
+           
             className="inline-flex items-center justify-center gap-2
                        bg-yellow-400 text-black font-semibold
                        px-8 py-4 rounded-xl
@@ -60,10 +62,12 @@ export default function FinalCTA() {
           >
             <PhoneCall size={20} />
             Contact Us
-          </motion.a>
+          </motion.div>
+          </Link>
 
           {/* App Download */}
-          <motion.a
+            <Link to="/mobile-app">
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             href="/mobile-app"
@@ -75,7 +79,8 @@ export default function FinalCTA() {
             <Download size={20} />
             Download App
             <ArrowRight size={18} />
-          </motion.a>
+          </motion.div>
+          </Link>
         </motion.div>
 
         {/* Trust Line */}
