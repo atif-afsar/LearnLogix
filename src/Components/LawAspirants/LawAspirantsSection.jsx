@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Scale, BookOpen, Brain } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function LawAspirantsSection() {
   return (
@@ -68,15 +68,16 @@ export default function LawAspirantsSection() {
           </div>
 
           {/* CTA */}
-          <NavLink
-            to="/courses"
+          <Link to="/contact">
+          <div
             className="inline-block mt-10 px-8 py-4
                        bg-yellow-400 text-black font-semibold
                        rounded-xl hover:bg-yellow-500 transition
                        shadow-lg shadow-yellow-400/30"
           >
             Start Law Preparation
-          </NavLink>
+          </div>
+          </Link>
         </motion.div>
 
         {/* RIGHT IMAGE */}

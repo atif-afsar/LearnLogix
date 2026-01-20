@@ -24,15 +24,18 @@ export default function PlatformsCTA() {
             Start learning core concepts for free with clear,
             exam-focused classes taught by expert educators.
           </p>
-
+         <a href="https://www.youtube.com/@Learn_logix" target="_blank" rel="noopener noreferrer">
           <button
+           
             className="inline-flex items-center gap-2
                        text-red-600 font-semibold text-lg
                        group-hover:gap-3 transition-all"
           >
             Subscribe Now
             <span className="text-xl">→</span>
+         
           </button>
+           </a>
         </div>
 
         {/* Mobile App Card */}
@@ -56,7 +59,7 @@ export default function PlatformsCTA() {
             Access recorded lectures, notes, practice tests,
             and complete courses anytime, anywhere.
           </p>
-
+          <a href="https://play.google.com/store/apps/details?id=co.ted.gjznu" target="_blank" rel="noopener noreferrer">
           <button
             className="inline-flex items-center gap-2
                        text-yellow-600 font-semibold text-lg
@@ -65,6 +68,7 @@ export default function PlatformsCTA() {
             Download App
             <span className="text-xl">→</span>
           </button>
+          </a>
         </div>
 
       </div>
