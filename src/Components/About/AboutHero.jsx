@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function AboutHero() {
   return (
@@ -48,7 +49,8 @@ export default function AboutHero() {
         </motion.p>
 
         {/* CTA */}
-        <motion.a
+        <Link to="/contact">
+        <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           href="/contact"
@@ -59,7 +61,8 @@ export default function AboutHero() {
                      shadow-lg shadow-yellow-400/30"
         >
          Contact Now
-        </motion.a>
+        </motion.div>
+        </Link>
       </div>
     </section>
   );

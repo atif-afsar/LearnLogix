@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, PhoneCall } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function AboutCTA() {
   return (
@@ -41,8 +41,8 @@ export default function AboutCTA() {
           className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
         >
           {/* Primary */}
-          <NavLink
-            to="/"
+          <Link to="/courses">
+          <div
             className="inline-flex items-center justify-center gap-2
                        bg-yellow-400 text-black font-semibold
                        px-8 py-4 rounded-xl
@@ -51,11 +51,12 @@ export default function AboutCTA() {
           >
             Start Learning
             <ArrowRight size={18} />
-          </NavLink>
+          </div>
+          </Link >
 
           {/* Secondary */}
-          <NavLink
-            to="/#contact"
+          <Link to="/contact">
+          <div
             className="inline-flex items-center justify-center gap-2
                        border border-white/20 text-white
                        px-8 py-4 rounded-xl
@@ -63,7 +64,8 @@ export default function AboutCTA() {
           >
             <PhoneCall size={18} />
             Contact Us
-          </NavLink>
+          </div>
+          </Link>
         </motion.div>
 
         {/* Trust Line */}
