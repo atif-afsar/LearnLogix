@@ -3,30 +3,30 @@ import { motion } from "framer-motion";
 
 const journey = [
   {
-    year: "2021",
-    title: "The Beginning",
-    desc: "LearnLogix started with a simple vision — making concept-based education accessible through online platforms.",
-  },
-  {
-    year: "2022",
-    title: "YouTube Growth",
-    desc: "Our YouTube channel gained thousands of students by delivering clear, exam-focused content.",
-  },
-  {
-    year: "2023",
-    title: "Structured Courses",
-    desc: "We launched structured programs for Class 11–12, CUET UG/PG, and Law aspirants.",
-  },
-  {
     year: "2024",
-    title: "Pan-India Reach",
-    desc: "LearnLogix became a trusted digital education platform for students across India.",
+    title: "The Idea Took Shape",
+    desc: "LearnLogix was founded with a clear goal — to bring concept-driven, honest education to students who want clarity, not shortcuts.",
+  },
+  {
+    year: "Early 2025",
+    title: "Building the Foundation",
+    desc: "We began with focused batches for Class 11–12, CUET, and Law aspirants, emphasizing strong fundamentals and personal guidance.",
+  },
+  {
+    year: "Mid 2025",
+    title: "Learning Beyond Classrooms",
+    desc: "To support students outside the classroom, we introduced digital learning resources, recorded lessons, and doubt-solving support.",
+  },
+  {
+    year: "Now",
+    title: "Growing with Our Students",
+    desc: "As a new coaching institute, we are continuously evolving — improving teaching methods, curriculum quality, and student experience every day.",
   },
 ];
 
 export default function OurJourney() {
   return (
-    <section className="bg-black text-white py-24 border-t border-white/10">
+    <section className="bg-gradient-to-b from-white via-zinc-50 to-white py-28 border-t border-zinc-200">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Heading */}
@@ -35,49 +35,55 @@ export default function OurJourney() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-20"
         >
-          <span className="inline-block mb-4 px-4 py-1.5 rounded-full
-                           bg-yellow-400/10 text-yellow-400 text-sm font-medium">
+          <span className="inline-block mb-5 px-4 py-1.5 rounded-full
+                           bg-yellow-400/15 text-yellow-600
+                           text-sm font-semibold tracking-wide">
             Our Journey
           </span>
 
-          <h2 className="text-3xl sm:text-4xl font-bold">
-            The Story of{" "}
-            <span className="text-yellow-400">LearnLogix</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-900">
+            The Beginning of{" "}
+            <span className="text-yellow-500">LearnLogix</span>
           </h2>
 
-          <p className="mt-4 text-gray-400">
-            From a simple idea to a growing national learning platform.
+          <p className="mt-5 text-zinc-600 text-lg">
+            Every great institution starts small — with purpose, passion,
+            and a commitment to do things the right way.
           </p>
         </motion.div>
 
         {/* Timeline */}
-        <div className="max-w-3xl mx-auto space-y-10">
+        <div className="max-w-3xl mx-auto space-y-12">
           {journey.map((item, i) => (
             <motion.div
               key={item.year}
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="flex gap-6"
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="flex gap-6 items-start"
             >
               {/* Year */}
               <div className="flex-shrink-0">
-                <div className="w-14 h-14 rounded-full
-                                bg-yellow-400 text-black
-                                font-bold flex items-center justify-center">
+                <div
+                  className="w-18 h-16 rounded-full
+                             bg-yellow-400 text-black
+                             font-bold text-sm
+                             flex items-center justify-center
+                             shadow-md"
+                >
                   {item.year}
                 </div>
               </div>
 
               {/* Content */}
-              <div>
-                <h4 className="text-lg font-semibold mb-1">
+              <div className="bg-white rounded-2xl p-6 border border-zinc-200 shadow-sm">
+                <h4 className="text-lg font-semibold text-zinc-900 mb-1">
                   {item.title}
                 </h4>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-zinc-600 text-sm leading-relaxed">
                   {item.desc}
                 </p>
               </div>
