@@ -15,6 +15,7 @@ import LawAspirantsSection from "./Components/LawAspirants/LawAspirantsSection";
 import Contact from "./Page/Contact";
 import ScrollToTop from "./Components/Common/ScrollToTop";
 import PrivacyPolicy from "./Components/Common/PrivacyPolicy";
+import TermsOfService from "./Components/Common/TermsOfService";
 
 const App = () => {
   return (
@@ -32,7 +33,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
 
          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-         {/* <Route path="/terms-of-service" element={<TermsOfService />} /> */}
+         <Route path="/terms-of-service" element={<TermsOfService />} />
       </Routes>
 
       {/* Floating WhatsApp Button */}
