@@ -3,8 +3,9 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./Components/Common/Navbar";
 import Footer from "./Components/Common/Footer";
-import YouTubeSection from "./Components/Youtube/YouTubeSection";
+import FloatingWhatsApp from "./Components/Common/FloatingWhatsApp";
 
+import YouTubeSection from "./Components/Youtube/YouTubeSection";
 
 import Home from "./Page/Home";
 import About from "./Page/About";
@@ -12,11 +13,13 @@ import Courses from "./Page/Courses";
 import MobileAppSection from "./Components/MobileApp/MobileAppSection";
 import LawAspirantsSection from "./Components/LawAspirants/LawAspirantsSection";
 import Contact from "./Page/Contact";
+import ScrollToTop from "./Components/Common/ScrollToTop";
 
 const App = () => {
   return (
     <>
       <Navbar />
+      <ScrollToTop />
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -26,9 +29,10 @@ const App = () => {
         <Route path="/mobile-app" element={<MobileAppSection />} />
         <Route path="/law" element={<LawAspirantsSection />} />
         <Route path="/contact" element={<Contact />} />
-
-
       </Routes>
+
+      {/* Floating WhatsApp Button */}
+      <FloatingWhatsApp />
 
       <Footer />
     </>

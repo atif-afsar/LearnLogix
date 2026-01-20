@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Mail, MapPin, Phone, Send, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Send, CheckCircle, Facebook } from "lucide-react";
+import { Instagram, Youtube, Linkedin } from "lucide-react";
+
 
 const ContactIntro = () => {
   return (
@@ -25,8 +27,8 @@ const ContactIntro = () => {
         <div className="mt-12 space-y-6">
           {[
             { icon: MapPin, title: "Head Office", info: "123 EdTech Plaza, South Extension II, New Delhi" },
-            { icon: Mail, title: "Support Email", info: "support@learnlogix.edu" },
-            { icon: Phone, title: "Admissions Helpline", info: "+91 98765 43210" }
+            { icon: Mail, title: "Support Email", info: "learnwithlogix@gmail.com" },
+            { icon: Phone, title: "Admissions Helpline", info: "+919084701476" }
           ].map((item, index) => (
             <div 
               key={index}
@@ -40,24 +42,59 @@ const ContactIntro = () => {
               </div>
               <div>
                 <h4 className="font-semibold text-white mb-1">{item.title}</h4>
-                <p className="text-gray-400 text-sm">{item.info}</p>
+                <p className="text-gray-800 text-lg">{item.info}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="flex gap-8 mt-12 relative z-10">
-        {["Instagram", "LinkedIn", "YouTube"].map((social, index) => (
-          <span 
-            key={index}
-            className="text-gray-500 hover:text-yellow-400 cursor-pointer font-medium transition-all duration-300 hover:scale-110 relative group"
-          >
-            {social}
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 group-hover:w-full transition-all duration-300"></span>
-          </span>
-        ))}
-      </div>
+      <div className="flex gap-5 mt-12 relative z-10">
+  {[
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/learn__logix/",
+      label: "Instagram",
+    },
+    {
+      icon: Youtube,
+      href: "https://www.youtube.com/@Learn_logix",
+      label: "YouTube",
+    },
+    {
+      icon: Facebook,
+      href: "https://www.facebook.com/share/17MSd7MRVR/",
+      label: "Facebook",
+    },
+  ].map(({ icon: Icon, href, label }, index) => (
+    <a
+      key={index}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="
+        group relative
+        w-12 h-12 rounded-full
+        flex items-center justify-center
+        border border-white/10
+        bg-white/5 backdrop-blur-md
+        text-gray-400
+        hover:text-yellow-400
+        hover:border-yellow-400/50
+        hover:bg-yellow-400/10
+        transition-all duration-300
+        hover:scale-110
+        hover:-translate-y-1
+      "
+    >
+      <Icon size={20} />
+
+      {/* Glow */}
+      <span className="absolute inset-0 rounded-full bg-yellow-400 opacity-0 blur-xl group-hover:opacity-30 transition-opacity"></span>
+    </a>
+  ))}
+</div>
     </section>
   );
 };
