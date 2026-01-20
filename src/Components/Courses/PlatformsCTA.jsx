@@ -1,25 +1,69 @@
 export default function PlatformsCTA() {
   return (
-    <section className="bg-black text-white py-20 border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 gap-8">
+    <section className="bg-gradient-to-b from-white via-zinc-50 to-white py-24 border-t border-zinc-200">
+      <div className="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 gap-10">
 
-        <div className="border border-white/10 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold mb-3">Free Learning on YouTube</h3>
-          <p className="text-gray-400 mb-6">
-            Start learning concepts for free with our expert-led YouTube classes.
+        {/* YouTube Card */}
+        <div
+          className="group bg-white border border-zinc-200
+                     rounded-3xl p-10
+                     shadow-sm hover:shadow-xl
+                     transition-all duration-300"
+        >
+          <span className="inline-block mb-4 px-4 py-1.5 rounded-full
+                           bg-red-500/10 text-red-600
+                           text-sm font-semibold">
+            Free Platform
+          </span>
+
+          <h3 className="text-2xl lg:text-3xl font-bold text-zinc-900 mb-4">
+            Free Learning on YouTube
+          </h3>
+
+          <p className="text-zinc-600 text-lg mb-8">
+            Start learning core concepts for free with clear,
+            exam-focused classes taught by expert educators.
           </p>
-          <button className="text-yellow-400 font-medium">
-            Subscribe Now →
+
+          <button
+            className="inline-flex items-center gap-2
+                       text-red-600 font-semibold text-lg
+                       group-hover:gap-3 transition-all"
+          >
+            Subscribe Now
+            <span className="text-xl">→</span>
           </button>
         </div>
 
-        <div className="border border-white/10 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold mb-3">LearnLogix Mobile App</h3>
-          <p className="text-gray-400 mb-6">
-            Access recorded lectures, notes, tests, and full courses on our app.
+        {/* Mobile App Card */}
+        <div
+          className="group bg-white border border-zinc-200
+                     rounded-3xl p-10
+                     shadow-sm hover:shadow-xl
+                     transition-all duration-300"
+        >
+          <span className="inline-block mb-4 px-4 py-1.5 rounded-full
+                           bg-yellow-400/15 text-yellow-600
+                           text-sm font-semibold">
+            Premium Access
+          </span>
+
+          <h3 className="text-2xl lg:text-3xl font-bold text-zinc-900 mb-4">
+            LearnLogix Mobile App
+          </h3>
+
+          <p className="text-zinc-600 text-lg mb-8">
+            Access recorded lectures, notes, practice tests,
+            and complete courses anytime, anywhere.
           </p>
-          <button className="text-yellow-400 font-medium">
-            Download App →
+
+          <button
+            className="inline-flex items-center gap-2
+                       text-yellow-600 font-semibold text-lg
+                       group-hover:gap-3 transition-all"
+          >
+            Download App
+            <span className="text-xl">→</span>
           </button>
         </div>
 

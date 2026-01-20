@@ -2,34 +2,33 @@ import { BookOpen, GraduationCap, Scale } from "lucide-react";
 
 function CourseCard({ title, badge, subjects, icon: Icon }) {
   return (
-    <div className="group relative bg-gradient-to-br from-zinc-900 to-zinc-950 rounded-2xl p-6 border border-zinc-800 hover:border-yellow-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-400/10 hover:-translate-y-1">
+    <div className="group relative bg-white rounded-2xl p-6 border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-400/20 hover:-translate-y-1">
       <div className="flex items-start justify-between mb-4">
-        <div className="p-3 bg-yellow-400/10 rounded-xl group-hover:bg-yellow-400/20 transition-colors">
-          {Icon && <Icon className="w-6 h-6 text-yellow-400" />}
+        <div className="p-3 bg-yellow-50 rounded-xl group-hover:bg-yellow-100 transition-colors">
+          {Icon && <Icon className="w-6 h-6 text-yellow-600" />}
         </div>
-        <span className="px-3 py-1 bg-yellow-400/10 text-yellow-400 text-xs font-semibold rounded-full border border-yellow-400/20">
+        <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full border border-yellow-200">
           {badge}
         </span>
       </div>
       
-      <h3 className="text-xl font-bold mb-4 text-white group-hover:text-yellow-400 transition-colors">
+      <h3 className="text-xl font-bold mb-4 text-gray-900 group-hover:text-yellow-600 transition-colors">
         {title}
       </h3>
       
       <div className="space-y-2">
         {subjects.map((subject, idx) => (
-          <div key={idx} className="flex items-center gap-2 text-zinc-400 group-hover:text-zinc-300 transition-colors">
-            <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
+          <div key={idx} className="flex items-center gap-2 text-gray-600 group-hover:text-gray-700 transition-colors">
+            <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></div>
             <span className="text-sm">{subject}</span>
           </div>
         ))}
       </div>
       
-      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/0 via-yellow-400/0 to-yellow-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-50/0 via-yellow-50/0 to-yellow-50/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
     </div>
   );
 }
-
 export default function CourseCategories() {
   const categories = [
     {
@@ -139,13 +138,6 @@ export default function CourseCategories() {
               )}
             </div>
           ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-16 sm:mt-20 text-center">
-          <button className="px-6 sm:px-8 py-3 sm:py-4 bg-yellow-400 text-black font-semibold rounded-full hover:bg-yellow-300 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-400/30 hover:scale-105 text-sm sm:text-base">
-            View All Courses
-          </button>
         </div>
       </div>
     </section>
