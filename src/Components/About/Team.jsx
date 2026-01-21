@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const teamMembers = [
   {
-    name: "Yasir Ahmad",
+    name: "Yasir Ali Sir",
     role: "Founder & Lead Educator",
     image: "/images/team2.png",
     experience: "10+ Years Experience",
