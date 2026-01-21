@@ -42,7 +42,7 @@ const ContactIntro = () => {
               </div>
               <div>
                 <h4 className="font-semibold text-white mb-1">{item.title}</h4>
-                <p className="text-gray-800 text-lg">{item.info}</p>
+                <p className="text-gray-800 text-sm">{item.info}</p>
               </div>
             </div>
           ))}
