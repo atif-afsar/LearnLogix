@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Send, User, Mail, BookOpen, MessageSquare, Sparkles, CheckCircle2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -195,9 +196,13 @@ const ContactForm = () => {
         <div className="mt-8 text-center">
           <p className="text-gray-500 text-sm">
             By submitting this form, you agree to our{" "}
+            <Link to="/terms-of-service">
             <span className="text-yellow-600 hover:text-yellow-700 cursor-pointer font-semibold">Terms of Service</span>
+            </Link>
             {" "}and{" "}
+            <Link to="/privacy-policy">
             <span className="text-yellow-600 hover:text-yellow-700 cursor-pointer font-semibold">Privacy Policy</span>
+            </Link>
           </p>
         </div>
       </div>
