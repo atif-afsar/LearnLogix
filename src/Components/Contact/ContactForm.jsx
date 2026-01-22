@@ -11,6 +11,8 @@ const ContactForm = () => {
   });
   const [focusedField, setFocusedField] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
 
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -45,16 +47,20 @@ const handleSubmit = async (e) => {
     }
 
     setIsSubmitted(true);
+setShowSuccessModal(true);
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        fullName: "",
-        email: "",
-        program: "",
-        message: "",
-      });
-    }, 3000);
+
+   setTimeout(() => {
+  setIsSubmitted(false);
+  setShowSuccessModal(false);
+  setFormData({
+    fullName: "",
+    email: "",
+    program: "",
+    message: "",
+  });
+}, 3000);
+
 
   } catch (error) {
     console.error("Frontend error:", error);
@@ -244,6 +250,33 @@ const handleSubmit = async (e) => {
           </p>
         </div>
       </div>
+
+      {showSuccessModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center">
+    {/* Backdrop */}
+    <div className="absolute inset-0 bg-black/40 backdrop-blur-md" />
+
+    {/* Modal */}
+    <div className="relative bg-white rounded-3xl p-10 w-[90%] max-w-md shadow-2xl animate-[scaleIn_0.4s_ease-out]">
+      
+      <div className="flex flex-col items-center text-center">
+        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
+          <CheckCircle2 size={42} className="text-green-600 animate-bounce" />
+        </div>
+
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">
+          Message Sent 🎉
+        </h3>
+
+        <p className="text-gray-600">
+          Thanks for reaching out!  
+          Our team will contact you within <span className="font-semibold">24 hours</span>.
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
     </section>
   );
 };
