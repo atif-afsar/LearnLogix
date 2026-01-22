@@ -16,14 +16,52 @@ const ContactForm = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!formData.fullName || !formData.email || !formData.message) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.fullName,
+        email: formData.email,
+        program: formData.program,
+        message: formData.message,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Request failed");
+    }
+
     setIsSubmitted(true);
+
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ fullName: "", email: "", program: "", message: "" });
+      setFormData({
+        fullName: "",
+        email: "",
+        program: "",
+        message: "",
+      });
     }, 3000);
-  };
+
+  } catch (error) {
+    console.error("Frontend error:", error);
+    alert(error.message || "Something went wrong");
+  }
+};
+
 
   return (
     <section className="bg-gradient-to-br from-gray-50 via-white to-gray-50 p-8 lg:p-16 relative overflow-hidden min-h-screen flex items-center">
