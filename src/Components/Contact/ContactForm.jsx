@@ -66,7 +66,7 @@ setShowSuccessModal(true);
     console.error("Frontend error:", error);
     alert(error.message || "Something went wrong");
   }
-};
+}; 
 
 
   return (

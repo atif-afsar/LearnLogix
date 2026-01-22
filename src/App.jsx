@@ -4,21 +4,34 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Navbar from "./Components/Common/Navbar";
 import Footer from "./Components/Common/Footer";
+import ScrollToTop from "./Components/Common/ScrollToTop";
+import Loader from "./Components/Common/Loader";
 import FloatingWhatsApp from "./Components/Common/FloatingWhatsApp";
 
-import Loader from "./Components/Common/Loader";
+import { lazy, Suspense } from "react";
 
-import YouTubeSection from "./Components/Youtube/YouTubeSection";
+const Home = lazy(() => import("./Page/Home"));
+const About = lazy(() => import("./Page/About"));
+const Courses = lazy(() => import("./Page/Courses"));
+const Contact = lazy(() => import("./Page/Contact"));
 
-import Home from "./Page/Home";
-import About from "./Page/About";
-import Courses from "./Page/Courses";
-import MobileAppSection from "./Components/MobileApp/MobileAppSection";
-import LawAspirantsSection from "./Components/LawAspirants/LawAspirantsSection";
-import Contact from "./Page/Contact";
-import ScrollToTop from "./Components/Common/ScrollToTop";
-import PrivacyPolicy from "./Components/Common/PrivacyPolicy";
-import TermsOfService from "./Components/Common/TermsOfService";
+const YouTubeSection = lazy(() =>
+  import("./Components/Youtube/YouTubeSection")
+);
+const MobileAppSection = lazy(() =>
+  import("./Components/MobileApp/MobileAppSection")
+);
+const LawAspirantsSection = lazy(() =>
+  import("./Components/LawAspirants/LawAspirantsSection")
+);
+
+const PrivacyPolicy = lazy(() =>
+  import("./Components/Common/PrivacyPolicy")
+);
+const TermsOfService = lazy(() =>
+  import("./Components/Common/TermsOfService")
+);
+
 
 
 
@@ -35,35 +48,32 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <AnimatePresence>
-        {loading && <Loader />}
-      </AnimatePresence>
+   <>
+  <Navbar />
+  <ScrollToTop />
 
-      {!loading && (
-        <>
-          <Navbar />
-          <ScrollToTop />
+  <AnimatePresence mode="wait">
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/youtube" element={<YouTubeSection />} />
+        <Route path="/mobile-app" element={<MobileAppSection />} />
+        <Route path="/law" element={<LawAspirantsSection />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+      </Routes>
+    </Suspense>
+  </AnimatePresence>
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/youtube" element={<YouTubeSection />} />
-            <Route path="/mobile-app" element={<MobileAppSection />} />
-            <Route path="/law" element={<LawAspirantsSection />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-          </Routes>
+ <Suspense fallback={null}>
+  <FloatingWhatsApp />
+</Suspense>
 
-          {/* Floating WhatsApp Button */}
-          <FloatingWhatsApp />
-
-          <Footer />
-        </>
-      )}
-    </>
+  <Footer />
+</>
   );
 };
 
