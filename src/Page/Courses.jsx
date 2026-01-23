@@ -1,18 +1,26 @@
-import React from 'react'
-import CoursesHero from '../Components/Courses/CoursesHero'
-import CourseCategories from '../Components/Courses/CourseCategories'
-import PlatformsCTA from '../Components/Courses/PlatformsCTA'
-import CoursesCTA from '../Components/Courses/CoursesCTA'
+import React from "react";
+import useSEO from "../Components/Common/useSEO";
+import CoursesHero from "../Components/Courses/CoursesHero";
+import CourseCategories from "../Components/Courses/CourseCategories";
+import PlatformsCTA from "../Components/Courses/PlatformsCTA";
+import CoursesCTA from "../Components/Courses/CoursesCTA";
 
 const Courses = () => {
+  useSEO({
+    title:
+      "Courses at LearnLogix – Class 11 & 12, CUET UG/PG & Law Preparation",
+    description:
+      "Explore LearnLogix courses for Class 11 & 12 students, CUET UG/PG and Law aspirants. Concept-based, exam-oriented learning through YouTube and mobile app.",
+  });
+
   return (
-    <div>
+    <main>
       <CoursesHero />
       <CourseCategories />
       <PlatformsCTA />
       <CoursesCTA />
-    </div>
-  )
-}
+    </main>
+  );
+};
 
-export default Courses
+export default Courses;
