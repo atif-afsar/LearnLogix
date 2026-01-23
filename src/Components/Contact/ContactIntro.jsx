@@ -26,7 +26,7 @@ const ContactIntro = () => {
 
         <div className="mt-12 space-y-6">
           {[
-            { icon: MapPin, title: "Head Office", info: "123 EdTech Plaza, South Extension II, New Delhi" },
+            { icon: MapPin, title: "Head Office", info: "Gate No.2, Noor Manzil, Dodhpur Rd, opposite Shah ji Dairy, Aligarh, Uttar Pradesh 202001" },
             { icon: Mail, title: "Support Email", info: "learnwithlogix@gmail.com" },
             { icon: Phone, title: "Admissions Helpline", info: "+919084701476" }
           ].map((item, index) => (

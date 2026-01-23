@@ -99,18 +99,37 @@ export default function MobileAppSection() {
 
           {/* STORE BUTTONS */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="mt-12 flex flex-wrap gap-4"
-          >
-            <StoreButton
-              href="https://play.google.com/store/apps/details?id=co.ted.gjznu"
-              src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-              alt="Get it on Google Play"
-            />
-          </motion.div>
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ delay: 0.4 }}
+  className="mt-12 flex flex-wrap gap-4"
+>
+  <a
+    href="https://play.google.com/store/apps/details?id=co.ted.gjznu"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group flex items-center gap-4 rounded-2xl bg-black px-6 py-4 shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl active:scale-95"
+  >
+    {/* Text side */}
+    <div className="text-left">
+      <p className="text-xs uppercase tracking-wide text-gray-400">
+        Available on
+      </p>
+      <p className="text-lg font-semibold text-white">
+        Download the App
+      </p>
+    </div>
+
+    {/* Store badge */}
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+      alt="Get it on Google Play"
+      className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+    />
+  </a>
+</motion.div>
+
         </motion.div>
 
         {/* RIGHT PHONE MOCKUP */}

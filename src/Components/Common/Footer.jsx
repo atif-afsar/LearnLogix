@@ -6,10 +6,8 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 py-16">
-
         {/* Top Grid */}
         <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-4">
-
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3  mb-4">
@@ -18,7 +16,6 @@ export default function Footer() {
                 alt="LearnLogix Logo"
                 className="h-9 w-auto rounded-lg object-contain"
               />
-           
             </div>
             <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
               India’s smart online learning platform for Commerce, Humanities,
@@ -94,8 +91,14 @@ export default function Footer() {
             <div className="flex gap-4 mt-6">
               {[
                 { icon: Youtube, href: "https://www.youtube.com/@Learn_logix" },
-                { icon: Instagram, href: "https://www.instagram.com/learn__logix/" },
-                { icon: Facebook, href: "https://www.facebook.com/share/17MSd7MRVR/" },
+                {
+                  icon: Instagram,
+                  href: "https://www.instagram.com/learn__logix/",
+                },
+                {
+                  icon: Facebook,
+                  href: "https://www.facebook.com/share/17MSd7MRVR/",
+                },
               ].map(({ icon: Icon, href }, i) => (
                 <a
                   key={i}
@@ -114,28 +117,43 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-14 pt-8 border-t border-white/10
-                        flex flex-col sm:flex-row items-center justify-between
-                        gap-4 text-sm text-gray-500">
-          <p>
-            © {new Date().getFullYear()} LearnLogix. All rights reserved.
+        <div
+          className="mt-14 pt-8 border-t border-white/10
+             flex flex-col sm:flex-row items-center
+             justify-between gap-4 text-sm text-gray-500"
+        >
+          {/* Left */}
+          <p>© {new Date().getFullYear()} LearnLogix. All rights reserved.</p>
+
+          {/* Center */}
+          <p className="text-center">
+            Managed & Built by{" "}
+            <a
+              href="https://thebrandsway.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-yellow-400 text-lg transition"
+            >
+              The Brands<span className="text-red-500 font-semibold hover:drop-shadow-[0_0_6px_rgba(239,68,68,0.8)] transition">Way</span>
+            </a>
           </p>
 
+          {/* Right */}
           <div className="flex gap-6">
-              <Link
-                to="/privacy-policy"
-                className="hover:text-yellow-400 transition"
-              >
-                Privacy Policy
-              </Link>
+            <Link
+              to="/privacy-policy"
+              className="hover:text-yellow-400 transition"
+            >
+              Privacy Policy
+            </Link>
 
-              <Link
-                to="/terms-of-service"
-                className="hover:text-yellow-400 transition"
-              >
-                Terms of Service
-              </Link>
-            </div>
+            <Link
+              to="/terms-of-service"
+              className="hover:text-yellow-400 transition"
+            >
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
