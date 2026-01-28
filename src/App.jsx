@@ -9,6 +9,11 @@ import Loader from "./Components/Common/Loader";
 import FloatingWhatsApp from "./Components/Common/FloatingWhatsApp";
 
 import { lazy, Suspense } from "react";
+import AdminLogin from "./Admin/Pages/AdminLogin";
+import AdminRoutes from "./Admin/AdminRoutes";
+import AdminDashboard from "./Admin/Pages/AdminDashboard";
+import AdminCourses from "./Admin/Pages/AdminCourses";
+import AddCourse from "./Admin/Pages/AddCourse";
 
 const Home = lazy(() => import("./Page/Home"));
 const About = lazy(() => import("./Page/About"));
@@ -64,6 +69,13 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminRoutes />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="courses" element={<AdminCourses />} />
+          <Route path="courses/add" element={<AddCourse />} />
+
+        </Route>
       </Routes>
     </Suspense>
   </AnimatePresence>
