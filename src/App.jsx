@@ -14,6 +14,9 @@ import AdminRoutes from "./Admin/AdminRoutes";
 import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import AdminCourses from "./Admin/Pages/AdminCourses";
 import AddCourse from "./Admin/Pages/AddCourse";
+import AdminLayout from "./Admin/Components/AdminLayout";
+import AdminTeam from "./Admin/Pages/AdminTeam";
+import AddTeamMember from "./Admin/Pages/AddTeamMember";
 
 const Home = lazy(() => import("./Page/Home"));
 const About = lazy(() => import("./Page/About"));
@@ -36,8 +39,6 @@ const PrivacyPolicy = lazy(() =>
 const TermsOfService = lazy(() =>
   import("./Components/Common/TermsOfService")
 );
-
-
 
 
 const App = () => {
@@ -71,11 +72,14 @@ const App = () => {
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminRoutes />}>
+        <Route path="team/add" element={<AddTeamMember />} />
+        <Route path="team" element={<AdminTeam />} />
+        <Route element={<AdminLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="courses" element={<AdminCourses />} />
           <Route path="courses/add" element={<AddCourse />} />
-
         </Route>
+      </Route>
       </Routes>
     </Suspense>
   </AnimatePresence>
