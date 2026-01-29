@@ -1,47 +1,125 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import {
+  LayoutDashboard,
+  BookOpen,
+  Plus,
+  Users,
+  LogOut,
+  Menu,
+  X,
+} from "lucide-react";
+import { useState } from "react";
 
 const AdminLayout = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
+
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     window.location.href = "/admin/login";
   };
 
+  const navItems = [
+    { path: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { path: "/admin/courses", label: "Courses", icon: BookOpen },
+    { path: "/admin/courses/add", label: "Add Course", icon: Plus },
+    { path: "/admin/team", label: "Team Members", icon: Users },
+    { path: "/admin/team/add", label: "Add Member", icon: Plus },
+  ];
+
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <aside className="w-64 bg-black text-white p-6">
-        <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
+    <div className="flex min-h-screen bg-gray-50 relative">
+      {/* Sidebar - Hidden on mobile, visible on lg+ */}
+      <aside
+        className={`fixed lg:relative top-0 left-0 z-50 h-screen w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white transition-all duration-300 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0`}
+      >
+        {/* Logo Section */}
+        <div className="flex items-center justify-between p-6 border-b border-slate-700">
+          <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            LearnLogix
+          </h1>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="p-2 hover:bg-slate-700 rounded-lg transition-colors lg:hidden"
+            aria-label="Toggle sidebar"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
-        <nav className="space-y-3">
-          <Link to="/admin/dashboard" className="block hover:underline">
-            Dashboard
-          </Link>
-          <Link to="/admin/courses" className="block hover:underline">
-            Courses
-          </Link>
-          <Link to="/admin/courses/add" className="block hover:underline">
-            Add Course
-          </Link>
-          <Link to="/admin/team" className="block hover:underline">
-            Team Members
-            </Link>
-            <Link to="/admin/team/add" className="block hover:underline">
-            Add Team Member
-            </Link>
+        {/* Navigation */}
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setSidebarOpen(false)}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-sm sm:text-base ${
+                  isActive(item.path)
+                    ? "bg-blue-500 shadow-lg text-white"
+                    : "hover:bg-slate-700 text-slate-300 hover:text-white"
+                }`}
+              >
+                <Icon size={20} />
+                <span className="font-medium">{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
 
+        {/* Logout Button */}
+        <div className="p-4 border-t border-slate-700">
           <button
             onClick={handleLogout}
-            className="mt-6 text-left text-red-400 hover:underline"
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-lg hover:bg-red-600 transition-all duration-200 text-slate-300 hover:text-white text-sm sm:text-base"
           >
-            Logout
+            <LogOut size={20} />
+            <span className="font-medium">Logout</span>
           </button>
-        </nav>
+        </div>
       </aside>
 
-      {/* Content */}
-      <main className="flex-1 bg-gray-100 p-6">
-        <Outlet />
-      </main>
+      {/* Main Content */}
+      <div className="flex-1 w-full">
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
+          <div className="px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 hover:bg-gray-100 rounded-lg transition lg:hidden"
+              aria-label="Toggle menu"
+            >
+              {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-800 flex-1">
+              Admin Panel
+            </h2>
+            <div className="text-xs sm:text-sm text-gray-600 whitespace-nowrap">
+              Welcome, <span className="font-medium hidden sm:inline">Administrator</span>
+            </div>
+          </div>
+        </header>
+
+        {/* Content Area */}
+        <main className="p-4 sm:p-6 lg:p-8">
+          <Outlet />
+        </main>
+      </div>
+
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 };

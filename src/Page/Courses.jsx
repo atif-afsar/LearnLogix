@@ -2,6 +2,7 @@ import React from "react";
 import useSEO from "../Components/Common/useSEO";
 import CoursesHero from "../Components/Courses/CoursesHero";
 import CourseCategories from "../Components/Courses/CourseCategories";
+import CoursesList from "../Components/Courses/CoursesList";
 import PlatformsCTA from "../Components/Courses/PlatformsCTA";
 import CoursesCTA from "../Components/Courses/CoursesCTA";
 
@@ -17,6 +18,7 @@ const Courses = () => {
     <main>
       <CoursesHero />
       <CourseCategories />
+      <CoursesList />
       <PlatformsCTA />
       <CoursesCTA />
     </main>
