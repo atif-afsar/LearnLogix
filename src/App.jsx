@@ -17,6 +17,7 @@ import AddCourse from "./Admin/Pages/AddCourse";
 import AdminLayout from "./Admin/Components/AdminLayout";
 import AdminTeam from "./Admin/Pages/AdminTeam";
 import AddTeamMember from "./Admin/Pages/AddTeamMember";
+import EditCourse from "./Admin/Pages/EditCourse";
 
 const Home = lazy(() => import("./Page/Home"));
 const About = lazy(() => import("./Page/About"));
@@ -78,6 +79,8 @@ const App = () => {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="courses" element={<AdminCourses />} />
           <Route path="courses/add" element={<AddCourse />} />
+          <Route path="courses/edit/:id" element={<EditCourse />} />
+
         </Route>
       </Route>
       </Routes>

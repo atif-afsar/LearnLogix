@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminCourses = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -67,8 +71,14 @@ const AdminCourses = () => {
               <td className="border p-2">
                 {new Date(course.createdAt).toLocaleDateString()}
               </td>
-              <td className="border p-2">
+              <td className="border p-2 space-x-2">
                 <button
+            onClick={() => navigate(`/admin/courses/edit/${course._id}`)}
+            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+          >
+            Edit
+          </button>
+                        <button
                     onClick={() => handleDelete(course._id)}
                     className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                 >

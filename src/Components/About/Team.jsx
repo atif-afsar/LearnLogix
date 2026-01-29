@@ -89,9 +89,12 @@ export default function MeetOurTeam() {
                                 group-hover:scale-100 transition-transform duration-700" />
 
                 <img
-                  src={member.image}
+                  src={member.image || "https://via.placeholder.com/400?text=Team+Member"}
                   alt={member.name}
                   loading="lazy"
+                  onError={(e) => {
+                    e.target.src = "https://via.placeholder.com/400?text=No+Image";
+                  }}
                   className="relative w-full h-full object-cover
                              group-hover:scale-110 transition-transform duration-700"
                 />
