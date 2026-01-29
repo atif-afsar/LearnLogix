@@ -7,6 +7,7 @@ import {
   Loader,
   Users,
   ArrowLeft,
+  X,
 } from "lucide-react";
 
 const AddTeamMember = () => {
@@ -39,6 +40,11 @@ const AddTeamMember = () => {
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
     setError("");
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setImagePreview("");
   };
 
   const handleSubmit = async (e) => {
@@ -101,169 +107,168 @@ const AddTeamMember = () => {
   };
 
   return (
-    <div className="w-full">
-      <div className="max-w-2xl mx-auto">
-      {/* Header */}
-      <div className="mb-6 sm:mb-8 flex items-start gap-3">
-        <button
-          onClick={() => navigate("/admin/team")}
-          className="p-2 hover:bg-gray-200 rounded-lg transition mt-1"
-          title="Go back"
-        >
-          <ArrowLeft size={24} className="text-gray-600" />
-        </button>
-        <div className="flex-1">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
-            <Users size={24} className="text-purple-600" />
-            Add Team Member
-          </h1>
-          <p className="text-sm sm:text-base text-gray-600 mt-2">
-            Add a new team member to your platform
-          </p>
+    <div className="w-full min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <div className="mb-6 sm:mb-8">
+          <button
+            onClick={() => navigate("/admin/team")}
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span className="font-medium">Back to Team</span>
+          </button>
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-purple-100 rounded-xl">
+              <Users className="w-7 h-7 sm:w-8 sm:h-8 text-purple-600" />
+            </div>
+            <div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+                Add Team Member
+              </h1>
+              <p className="text-sm sm:text-base text-gray-600 mt-1">
+                Add a new team member to your platform
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Success Message */}
-      {success && (
-        <div className="mb-6 p-4 rounded-lg bg-green-50 border border-green-200 flex gap-3 items-start">
-          <CheckCircle size={20} className="text-green-600 flex-shrink-0 mt-0.5" />
-          <p className="text-green-700 text-sm sm:text-base">Team member added successfully! Redirecting...</p>
-        </div>
-      )}
-
-      {/* Error Alert */}
-      {error && (
-        <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 flex gap-3 items-start">
-          <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" />
-          <p className="text-red-700 text-sm sm:text-base">{error}</p>
-        </div>
-      )}
-
-      {/* Form Card */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8">
-        <div className="space-y-6">
-          {/* Name Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Full Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              placeholder="e.g., John Doe"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              disabled={loading}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
-            />
-            <p className="text-xs sm:text-sm text-gray-500 mt-1">
-              Enter the team member's full name
+        {/* Success Message */}
+        {success && (
+          <div className="mb-6 p-4 rounded-xl bg-green-50 border border-green-200 flex gap-3 items-start">
+            <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+            <p className="text-green-700 text-sm sm:text-base">
+              Team member added successfully! Redirecting...
             </p>
           </div>
+        )}
 
-          {/* Role Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Role / Position <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              placeholder="e.g., Course Instructor, Content Manager"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              required
-              disabled={loading}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
-            />
-            <p className="text-xs sm:text-sm text-gray-500 mt-1">
-              Enter the team member's role or position
-            </p>
+        {/* Error Alert */}
+        {error && (
+          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex gap-3 items-start">
+            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <p className="text-red-700 text-sm sm:text-base flex-1">{error}</p>
           </div>
+        )}
 
-          {/* Image Upload Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Profile Image <span className="text-red-500">*</span>
-            </label>
-            <label className="block cursor-pointer">
-              <div
-                className={`border-2 border-dashed rounded-lg p-6 sm:p-8 text-center transition-all ${
-                  imagePreview
-                    ? "border-green-500 bg-green-50"
-                    : "border-gray-300 hover:border-purple-500 hover:bg-purple-50"
-                }`}
-              >
-                <div className="flex flex-col items-center">
-                  {imagePreview ? (
-                    <>
-                      <CheckCircle
-                        size={32}
-                        className="text-green-600 mb-2"
-                      />
-                      <p className="text-sm font-medium text-gray-900">
-                        Image Selected
-                      </p>
-                      <p className="text-xs text-gray-600 mt-1 truncate max-w-xs">{imageFile?.name}</p>
-                    </>
-                  ) : (
-                    <>
-                      <Upload size={32} className="text-gray-400 mb-2" />
-                      <p className="text-sm font-medium text-gray-900">
+        {/* Form Card */}
+        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8">
+          <div className="space-y-6">
+            {/* Name Field */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
+                Full Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="e.g., John Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                disabled={loading}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              />
+              <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                Enter the team member's full name
+              </p>
+            </div>
+
+            {/* Role Field */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
+                Role / Position <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="e.g., Course Instructor, Content Manager"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+                disabled={loading}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              />
+              <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                Enter the team member's role or position
+              </p>
+            </div>
+
+            {/* Image Upload Field */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
+                Profile Image <span className="text-red-500">*</span>
+              </label>
+              
+              {!imagePreview ? (
+                <label className="block cursor-pointer">
+                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 sm:p-10 text-center hover:border-purple-500 hover:bg-purple-50 transition-all">
+                    <div className="flex flex-col items-center">
+                      <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mb-3" />
+                      <p className="text-sm sm:text-base font-medium text-gray-900 mb-1">
                         Click to upload or drag and drop
                       </p>
-                      <p className="text-xs text-gray-600 mt-1">
+                      <p className="text-xs sm:text-sm text-gray-600">
                         PNG, JPG, GIF up to 5MB
                       </p>
-                    </>
-                  )}
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      disabled={loading}
+                      className="hidden"
+                    />
+                  </div>
+                </label>
+              ) : (
+                <div className="space-y-3">
+                  <div className="relative rounded-xl overflow-hidden border-2 border-green-500 bg-green-50">
+                    <img
+                      src={imagePreview}
+                      alt="Team member preview"
+                      className="w-full h-48 sm:h-64 object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={removeImage}
+                      disabled={loading}
+                      className="absolute top-3 right-3 p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-xl">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900">Image Selected</p>
+                      <p className="text-xs text-gray-600 truncate">{imageFile?.name}</p>
+                    </div>
+                  </div>
                 </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  disabled={loading}
-                  className="hidden"
-                />
-              </div>
-            </label>
-          </div>
-
-          {/* Image Preview */}
-          {imagePreview && (
-            <div className="space-y-3">
-              <p className="text-sm font-medium text-gray-900">Preview</p>
-              <div className="flex justify-center">
-                <img
-                  src={imagePreview}
-                  alt="Team member preview"
-                  className="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-lg border border-gray-200"
-                />
-              </div>
+              )}
             </div>
-          )}
 
-          {/* Form Actions */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
-            <button
-              type="submit"
-              disabled={loading || success}
-              className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-            >
-              {loading && <Loader size={20} className="animate-spin" />}
-              {loading ? "Adding..." : success ? "Added!" : "Add Member"}
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("/admin/team")}
-              disabled={loading}
-              className="w-full sm:auto px-6 py-3 bg-gray-100 text-gray-900 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-            >
-              Cancel
-            </button>
+            {/* Form Actions */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+              <button
+                type="submit"
+                disabled={loading || success}
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 sm:py-3.5 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                {loading && <Loader className="w-5 h-5 animate-spin" />}
+                {loading ? "Adding..." : success ? "Added!" : "Add Member"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("/admin/team")}
+                disabled={loading}
+                className="px-6 py-3 sm:py-3.5 bg-gray-100 text-gray-900 rounded-xl font-semibold hover:bg-gray-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
     </div>
   );
 };

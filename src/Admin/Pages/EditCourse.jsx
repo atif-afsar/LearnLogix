@@ -94,130 +94,142 @@ const EditCourse = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center py-12">
-        <Loader size={32} className="text-blue-600 animate-spin mb-4" />
-        <p className="text-gray-600">Loading course...</p>
+      <div className="w-full min-h-screen bg-gray-50 flex items-center justify-center px-4 py-6">
+        <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-sm border border-gray-200 p-12">
+          <Loader className="w-10 h-10 sm:w-12 sm:h-12 text-blue-600 animate-spin mb-4" />
+          <p className="text-gray-600 text-base sm:text-lg">Loading course...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      {/* Header */}
-      <div className="mb-8 flex items-center gap-3">
-        <button
-          onClick={() => navigate("/admin/courses")}
-          className="p-2 hover:bg-gray-200 rounded-lg transition"
-          title="Go back"
-        >
-          <ArrowLeft size={24} className="text-gray-600" />
-        </button>
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-            <BookOpen size={32} className="text-blue-600" />
-            Edit Course
-          </h1>
-          <p className="text-gray-600 mt-2">Update course details and pricing</p>
-        </div>
-      </div>
-
-      {/* Error Alert */}
-      {error && (
-        <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 flex gap-3">
-          <AlertCircle size={20} className="text-red-600 flex-shrink-0" />
-          <p className="text-red-700">{error}</p>
-        </div>
-      )}
-
-      {/* Form Card */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-        <div className="space-y-6">
-          {/* Title Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Course Title *
-            </label>
-            <input
-              type="text"
-              placeholder="e.g., Advanced JavaScript Programming"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              disabled={saving}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Update the course title
-            </p>
+    <div className="w-full min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <div className="mb-6 sm:mb-8">
+          <button
+            onClick={() => navigate("/admin/courses")}
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span className="font-medium">Back to Courses</span>
+          </button>
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-blue-100 rounded-xl">
+              <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-blue-600" />
+            </div>
+            <div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+                Edit Course
+              </h1>
+              <p className="text-sm sm:text-base text-gray-600 mt-1">
+                Update course details and pricing
+              </p>
+            </div>
           </div>
+        </div>
 
-          {/* Description Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Course Description *
-            </label>
-            <textarea
-              placeholder="Describe what students will learn in this course..."
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              disabled={saving}
-              rows={5}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed resize-none"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              {description.length}/500 characters
-            </p>
+        {/* Error Alert */}
+        {error && (
+          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex gap-3">
+            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <p className="text-red-700 text-sm sm:text-base flex-1">{error}</p>
           </div>
+        )}
 
-          {/* Price Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Price (₹) *
-            </label>
-            <div className="relative">
-              <DollarSign
-                size={20}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-              />
+        {/* Form Card */}
+        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8">
+          <div className="space-y-6">
+            {/* Title Field */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
+                Course Title <span className="text-red-500">*</span>
+              </label>
               <input
-                type="number"
-                placeholder="0.00"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                type="text"
+                placeholder="e.g., Advanced JavaScript Programming"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 required
                 disabled={saving}
-                step="0.01"
-                min="0"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
               />
+              <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                Update the course title
+              </p>
             </div>
-            <p className="text-xs text-gray-500 mt-1">
-              Update the course price in Indian Rupees
-            </p>
-          </div>
 
-          {/* Form Actions */}
-          <div className="flex gap-3 pt-6 border-t border-gray-200">
-            <button
-              type="submit"
-              disabled={saving}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {saving && <Loader size={20} className="animate-spin" />}
-              {saving ? "Saving..." : "Save Changes"}
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("/admin/courses")}
-              disabled={saving}
-              className="px-6 py-3 bg-gray-100 text-gray-900 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Cancel
-            </button>
+            {/* Description Field */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
+                Course Description <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                placeholder="Describe what students will learn in this course..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                disabled={saving}
+                rows={5}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed resize-none text-sm sm:text-base"
+              />
+              <div className="flex justify-between items-center mt-2">
+                <p className="text-xs sm:text-sm text-gray-500">
+                  Update the course description
+                </p>
+                <p className="text-xs text-gray-400">
+                  {description.length}/500
+                </p>
+              </div>
+            </div>
+
+            {/* Price Field */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
+                Price (₹) <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <DollarSign className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input
+                  type="number"
+                  placeholder="0.00"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  required
+                  disabled={saving}
+                  step="0.01"
+                  min="0"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                />
+              </div>
+              <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                Update the course price in Indian Rupees
+              </p>
+            </div>
+
+            {/* Form Actions */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+              <button
+                type="submit"
+                disabled={saving}
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 sm:py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                {saving && <Loader className="w-5 h-5 animate-spin" />}
+                {saving ? "Saving..." : "Save Changes"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("/admin/courses")}
+                disabled={saving}
+                className="px-6 py-3 sm:py-3.5 bg-gray-100 text-gray-900 rounded-xl font-semibold hover:bg-gray-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

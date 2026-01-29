@@ -30,12 +30,12 @@ const AdminLayout = () => {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50 relative">
-      {/* Sidebar - Hidden on mobile, visible on lg+ */}
+    <div className="flex min-h-screen bg-gray-50">
+      {/* Sidebar - Fixed on mobile, relative on lg+ */}
       <aside
-        className={`fixed lg:relative top-0 left-0 z-50 h-screen w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white transition-all duration-300 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0`}
+        className={`fixed lg:relative top-0 left-0 z-40 h-screen w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white transition-all duration-300 overflow-y-auto ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        }`}
       >
         {/* Logo Section */}
         <div className="flex items-center justify-between p-6 border-b border-slate-700">
@@ -52,7 +52,7 @@ const AdminLayout = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        <nav className="flex-1 p-4 space-y-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -85,10 +85,19 @@ const AdminLayout = () => {
         </div>
       </aside>
 
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Main Content */}
-      <div className="flex-1 w-full">
+      <div className="flex-1 w-full flex flex-col">
         {/* Header */}
-        <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
+        <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-20 flex-shrink-0">
           <div className="px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -107,19 +116,10 @@ const AdminLayout = () => {
         </header>
 
         {/* Content Area */}
-        <main className="p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
           <Outlet />
         </main>
       </div>
-
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-          aria-hidden="true"
-        />
-      )}
     </div>
   );
 };
