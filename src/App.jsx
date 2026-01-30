@@ -18,6 +18,7 @@ import AdminLayout from "./Admin/Components/AdminLayout";
 import AdminTeam from "./Admin/Pages/AdminTeam";
 import AddTeamMember from "./Admin/Pages/AddTeamMember";
 import EditCourse from "./Admin/Pages/EditCourse";
+import AdminProtectedRoute from "./Admin/Components/AdminProtectedRoute";
 
 const Home = lazy(() => import("./Page/Home"));
 const About = lazy(() => import("./Page/About"));
@@ -44,6 +45,7 @@ const TermsOfService = lazy(() =>
 
 const App = () => {
   const [loading, setLoading] = useState(true);
+ 
 
   useEffect(() => {
     // Simulate loading time - adjust duration as needed
@@ -53,6 +55,7 @@ const App = () => {
 
     return () => clearTimeout(timer);
   }, []);
+   if (loading) return <Loader />;
 
   return (
    <>
@@ -72,17 +75,23 @@ const App = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<AdminRoutes />}>
-        <Route path="team/add" element={<AddTeamMember />} />
-        <Route path="team" element={<AdminTeam />} />
-        <Route element={<AdminLayout />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="courses" element={<AdminCourses />} />
-          <Route path="courses/add" element={<AddCourse />} />
-          <Route path="courses/edit/:id" element={<EditCourse />} />
 
-        </Route>
-      </Route>
+            <Route
+              path="/admin"
+              element={
+                <AdminProtectedRoute>
+                  <AdminLayout />
+                </AdminProtectedRoute>
+              }
+            >
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="courses" element={<AdminCourses />} />
+              <Route path="courses/add" element={<AddCourse />} />
+              <Route path="courses/edit/:id" element={<EditCourse />} />
+              <Route path="team" element={<AdminTeam />} />
+              <Route path="team/add" element={<AddTeamMember />} />
+            </Route>
+
       </Routes>
     </Suspense>
   </AnimatePresence>

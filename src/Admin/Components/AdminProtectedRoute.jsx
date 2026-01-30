@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import Loader from "../Components/Common/Loader";
+import { Navigate } from "react-router-dom";
+import Loader from "../../Components/Common/Loader";
 
-const AdminRoutes = () => {
+const AdminProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);
 
@@ -14,7 +14,6 @@ const AdminRoutes = () => {
       return;
     }
 
-    // Verify token with backend
     fetch("http://localhost:5000/api/admin/me", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -34,12 +33,12 @@ const AdminRoutes = () => {
   }, []);
 
   if (loading) return <Loader />;
-
+ 
   if (!authorized) {
     return <Navigate to="/admin/login" replace />;
   }
 
-  return <Outlet />;
+  return children;
 };
 
-export default AdminRoutes;
+export default AdminProtectedRoute;

@@ -85,15 +85,6 @@ export default function Navbar() {
             {/* DESKTOP CTA */}
             <div className="hidden lg:flex items-center gap-3">
               <NavLink
-                to="/admin/login"
-                end
-                className="text-gray-900 font-semibold
-                           px-6 py-2.5 rounded-lg
-                           hover:bg-gray-100 transition-colors border border-gray-300"
-              >
-                ADMIN
-              </NavLink>
-              <NavLink
                 to="/contact"
                 end
                 className="bg-gray-900 text-white font-semibold
@@ -189,14 +180,6 @@ export default function Navbar() {
 
               {/* Bottom CTA */}
               <div className="px-4 sm:px-6 py-4 sm:py-6 border-t space-y-3 shrink-0">
-                <NavLink
-                  to="/admin/login"
-                  end
-                  onClick={() => setIsOpen(false)}
-                  className="block text-center w-full text-gray-900 py-3 sm:py-3.5 rounded-lg font-bold hover:bg-gray-100 active:bg-gray-200 border border-gray-300 transition-colors"
-                >
-                  ADMIN LOGIN
-                </NavLink>
                 <NavLink
                   to="/contact"
                   end
