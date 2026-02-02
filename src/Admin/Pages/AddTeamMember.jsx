@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../Services/api.js";
 import {
   CheckCircle,
   Upload,
@@ -83,7 +84,7 @@ const AddTeamMember = () => {
       formData.append("role", role.trim());
       formData.append("image", imageFile);
 
-      const res = await fetch("http://localhost:5000/api/team", {
+      const res = await fetch(`${API_BASE_URL}/api/team`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

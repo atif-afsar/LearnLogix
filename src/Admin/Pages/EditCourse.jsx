@@ -7,6 +7,7 @@ import {
   BookOpen,
   ArrowLeft,
 } from "lucide-react";
+import { API_BASE_URL, API_ADMIN_URL } from "../Services/api.js";
 
 const EditCourse = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const EditCourse = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/courses");
+        const res = await fetch(`${API_BASE_URL}/api/courses`);
         const data = await res.json();
 
         const course = data.find((c) => c._id === id);
@@ -65,7 +66,7 @@ const EditCourse = () => {
 
       const token = localStorage.getItem("adminToken");
 
-      const res = await fetch(`http://localhost:5000/api/admin/courses/${id}`, {
+      const res = await fetch(`${API_ADMIN_URL}/courses/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

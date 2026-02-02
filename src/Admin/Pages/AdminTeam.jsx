@@ -8,6 +8,7 @@ import {
   Users,
   ArrowLeft,
 } from "lucide-react";
+import { API_BASE_URL } from "../Services/api.js";
 
 const AdminTeam = () => {
   const [team, setTeam] = useState([]);
@@ -20,7 +21,7 @@ const AdminTeam = () => {
     const fetchTeam = async () => {
       try {
         setError(null);
-        const res = await fetch("http://localhost:5000/api/team");
+        const res = await fetch(`${API_BASE_URL}/api/team`);
         if (!res.ok) throw new Error("Failed to load team members");
         const data = await res.json();
         setTeam(Array.isArray(data) ? data : []);
@@ -48,7 +49,7 @@ const AdminTeam = () => {
     try {
       const token = localStorage.getItem("adminToken");
 
-      const res = await fetch(`http://localhost:5000/api/team/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/team/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

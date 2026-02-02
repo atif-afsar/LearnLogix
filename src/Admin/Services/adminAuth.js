@@ -1,5 +1,7 @@
+import { API_ADMIN_URL } from './api.js';
+
 export const adminLogin = async (email, password) => {
-  const response = await fetch("http://localhost:5000/api/admin/login", {
+  const response = await fetch(`${API_ADMIN_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Edit, Trash2, Plus, AlertCircle, Loader } from "lucide-react";
+import { API_BASE_URL, API_ADMIN_URL } from "../Services/api.js";
 
 const AdminCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -11,7 +12,7 @@ const AdminCourses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/courses");
+        const res = await fetch(`${API_BASE_URL}/api/courses`);
         const data = await res.json();
         setCourses(data);
       } catch (error) {
@@ -24,7 +25,7 @@ const AdminCourses = () => {
     fetchCourses();
 
     // Subscribe to server-sent events for live updates
-    const es = new EventSource("http://localhost:5000/api/courses/stream");
+    const es = new EventSource(`${API_BASE_URL}/api/courses/stream`);
 
     es.addEventListener("create", (e) => {
       try {
@@ -76,7 +77,7 @@ const AdminCourses = () => {
     try {
       const token = localStorage.getItem("adminToken");
 
-      const res = await fetch(`http://localhost:5000/api/admin/courses/${id}`, {
+      const res = await fetch(`${API_ADMIN_URL}/courses/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

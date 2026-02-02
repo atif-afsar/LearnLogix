@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookOpen, Users, TrendingUp, Clock } from "lucide-react";
+import { API_BASE_URL } from "../Services/api.js";
 
 const AdminDashboard = () => {
   const [coursesCount, setCoursesCount] = useState(0);
@@ -10,8 +11,8 @@ const AdminDashboard = () => {
     const fetchStats = async () => {
       try {
         const [coursesRes, teamRes] = await Promise.all([
-          fetch("http://localhost:5000/api/courses"),
-          fetch("http://localhost:5000/api/team"),
+          fetch(`${API_BASE_URL}/api/courses`),
+          fetch(`${API_BASE_URL}/api/team`),
         ]);
 
         const courses = await coursesRes.json();

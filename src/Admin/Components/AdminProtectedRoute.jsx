@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Loader from "../../Components/Common/Loader";
+import { API_ADMIN_URL } from "../Services/api.js";
 
 const AdminProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const AdminProtectedRoute = ({ children }) => {
       return;
     }
 
-    fetch("http://localhost:5000/api/admin/me", {
+    fetch(`${API_ADMIN_URL}/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

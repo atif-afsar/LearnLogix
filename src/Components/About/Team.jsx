@@ -5,7 +5,8 @@ export default function MeetOurTeam() {
   const [teamMembers, setTeamMembers] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/team")
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    fetch(`${API_BASE_URL}/api/team`)
       .then((res) => res.json())
       .then((data) => setTeamMembers(data))
       .catch((err) => console.error("Failed to load team:", err));

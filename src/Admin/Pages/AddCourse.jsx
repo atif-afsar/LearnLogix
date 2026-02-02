@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_ADMIN_URL } from "../Services/api.js";
 import {
   AlertCircle,
   CheckCircle,
@@ -76,7 +77,7 @@ const AddCourse = () => {
         formData.append("image", image);
       }
 
-      const res = await fetch("http://localhost:5000/api/admin/courses", {
+      const res = await fetch(`${API_ADMIN_URL}/courses`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

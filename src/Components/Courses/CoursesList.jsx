@@ -10,7 +10,8 @@ export default function CoursesList() {
 
     const fetchCourses = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/courses");
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+        const res = await fetch(`${API_BASE_URL}/api/courses`);
         const data = await res.json();
         setCourses(data);
       } catch (err) {
@@ -24,7 +25,8 @@ export default function CoursesList() {
 
     // subscribe to SSE
     try {
-      es = new EventSource("http://localhost:5000/api/courses/stream");
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+      es = new EventSource(`${API_BASE_URL}/api/courses/stream`);
 
       es.addEventListener("create", (e) => {
         try {
