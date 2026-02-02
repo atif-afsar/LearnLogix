@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://learnlogix.com/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1
+
+# Disallow admin routes
+Disallow: /admin/
+
+# Allow important pages
+Allow: /
+Allow: /about
+Allow: /courses
+Allow: /contact
+Allow: /youtube
+Allow: /mobile-app
+Allow: /law
+Allow: /privacy-policy
+Allow: /terms-of-service
+
+# Block unnecessary files
+Disallow: /*.json$
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /.git/

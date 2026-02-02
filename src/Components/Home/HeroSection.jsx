@@ -1,26 +1,104 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 
-export default function HeroSection() {
+// Memoized floating particles component
+const FloatingParticles = memo(() => {
+  const particles = useMemo(() => 
+    Array.from({ length: 10 }, (_, i) => ({ // Reduced from 20 to 10
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 2,
+      duration: 3 + Math.random() * 2
+    })), []
+  );
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute w-1 h-1 bg-yellow-400/30 rounded-full"
+          style={{
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            delay: particle.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+});
+
+FloatingParticles.displayName = 'FloatingParticles';
+
+// Memoized stats component
+const StatsSection = memo(() => {
+  const stats = useMemo(() => [
+    { number: "50,000+", label: "Active Students" },
+    { number: "1000+", label: "Video Lessons" },
+    { number: "95%", label: "Success Rate" },
+    { number: "24/7", label: "Learning Access" }
+  ], []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.7 }}
+      className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
+    >
+      {stats.map((stat, i) => (
+        <motion.div
+          key={stat.label}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 + i * 0.1 }}
+          className="text-center"
+        >
+          <div className="text-2xl md:text-3xl font-bold text-yellow-400">
+            {stat.number}
+          </div>
+          <div className="text-sm text-gray-400 mt-1">
+            {stat.label}
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+});
+
+StatsSection.displayName = 'StatsSection';
+
+const HeroSection = memo(() => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
       
-      {/* Animated Background Grid */}
+      {/* Animated Background Grid - Optimized */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px),
-                           linear-gradient(90deg, rgba(251, 191, 36, 0.1) 1px, transparent 1px)`,
-          backgroundSize: '50px 50px'
-        }} />
+        <div 
+          className="absolute inset-0" 
+          style={{
+            backgroundImage: `linear-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(251, 191, 36, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px',
+            willChange: 'auto' // Optimize for animations
+          }} 
+        />
       </div>
 
-      
-
-      {/* Background Glow Effects */}
+      {/* Background Glow Effects - Reduced complexity */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-yellow-400/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-500/5 rounded-full blur-[120px]" />
-        <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-yellow-400/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-yellow-400/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-yellow-500/4 rounded-full blur-[100px]" />
       </div>
 
       {/* Content */}
@@ -73,74 +151,56 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-5"
         >
-        <a href="https://play.google.com/store/apps/details?id=co.ted.gjznu" target="_blank" rel="noopener noreferrer">
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(251, 191, 36, 0.4)" }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative inline-flex items-center justify-center gap-3
-                       bg-yellow-400 text-black font-bold text-base
-                       px-8 py-4 rounded-xl
-                       hover:bg-yellow-500 transition-all
-                       shadow-xl shadow-yellow-400/30
-                       overflow-hidden"
+          <a 
+            href="https://play.google.com/store/apps/details?id=co.ted.gjznu" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label="Download LearnLogix App from Google Play Store"
           >
-          
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
-            </svg>
-            Download App
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </motion.button>
-          </a>
-
-          <a href="https://www.youtube.com/@Learn_logix" target="_blank" rel="noopener noreferrer">
-          <motion.button
-            whileHover={{ scale: 1.05, borderColor: "rgb(251, 191, 36)" }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center justify-center gap-3
-                       border-2 border-white/20 text-white font-semibold text-base
-                       px-8 py-4 rounded-xl
-                       hover:border-yellow-400 hover:text-yellow-400
-                       transition-all
-                       bg-white/5 backdrop-blur-sm"
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
-            </svg>
-            Watch on YouTube
-          </motion.button>
-          </a>
-        </motion.div>
-
-        {/* Stats or Trust Indicators */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
-        >
-          {[
-            { number: "50,000+", label: "Active Students" },
-            { number: "1000+", label: "Video Lessons" },
-            { number: "95%", label: "Success Rate" },
-            { number: "24/7", label: "Learning Access" }
-          ].map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 + i * 0.1 }}
-              className="text-center"
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(251, 191, 36, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative inline-flex items-center justify-center gap-3
+                         bg-yellow-400 text-black font-bold text-base
+                         px-8 py-4 rounded-xl
+                         hover:bg-yellow-500 transition-all
+                         shadow-xl shadow-yellow-400/30
+                         overflow-hidden"
             >
-              <div className="text-2xl md:text-3xl font-bold text-yellow-400">
-                {stat.number}
-              </div>
-              <div className="text-sm text-gray-400 mt-1">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
+              </svg>
+              Download App
+              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </motion.button>
+          </a>
+
+          <a 
+            href="https://www.youtube.com/@Learn_logix" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label="Watch LearnLogix videos on YouTube"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05, borderColor: "rgb(251, 191, 36)" }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center gap-3
+                         border-2 border-white/20 text-white font-semibold text-base
+                         px-8 py-4 rounded-xl
+                         hover:border-yellow-400 hover:text-yellow-400
+                         transition-all
+                         bg-white/5 backdrop-blur-sm"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+              </svg>
+              Watch on YouTube
+            </motion.button>
+          </a>
         </motion.div>
+
+        {/* Stats Section */}
+        <StatsSection />
 
         {/* Scroll Indicator */}
         <motion.div
@@ -155,35 +215,19 @@ export default function HeroSection() {
             className="inline-flex flex-col items-center gap-2 text-gray-500"
           >
             <span className="text-xs uppercase tracking-wider">Scroll to explore</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-yellow-400/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
+      {/* Optimized Floating Elements */}
+      <FloatingParticles />
     </section>
   );
-}
+});
+
+HeroSection.displayName = 'HeroSection';
+
+export default HeroSection;

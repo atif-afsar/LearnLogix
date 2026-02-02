@@ -10,7 +10,7 @@ export default function CoursesList() {
 
     const fetchCourses = async () => {
       try {
-        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://learnlogix-backend.onrender.com";
         const res = await fetch(`${API_BASE_URL}/api/courses`);
         const data = await res.json();
         setCourses(data);
@@ -25,7 +25,7 @@ export default function CoursesList() {
 
     // subscribe to SSE
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://learnlogix-backend.onrender.com";
       es = new EventSource(`${API_BASE_URL}/api/courses/stream`);
 
       es.addEventListener("create", (e) => {

@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { MessageCircle } from "lucide-react";
 
 export default function FloatingWhatsApp() {
   const [isHovered, setIsHovered] = useState(false);
@@ -44,7 +44,7 @@ export default function FloatingWhatsApp() {
         <span className="absolute inset-0 rounded-full bg-[#25D366]/40 animate-ping" />
 
         {/* WhatsApp Icon */}
-        <FaWhatsapp className="relative z-10 text-3xl md:text-[34px]" />
+        <MessageCircle className="relative z-10 w-8 h-8 md:w-9 md:h-9" />
       </motion.a>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Routes, Route } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -20,6 +20,7 @@ import AddTeamMember from "./Admin/Pages/AddTeamMember";
 import EditCourse from "./Admin/Pages/EditCourse";
 import AdminProtectedRoute from "./Admin/Components/AdminProtectedRoute";
 
+// Lazy load pages with better loading states
 const Home = lazy(() => import("./Page/Home"));
 const About = lazy(() => import("./Page/About"));
 const Courses = lazy(() => import("./Page/Courses"));
@@ -42,39 +43,41 @@ const TermsOfService = lazy(() =>
   import("./Components/Common/TermsOfService")
 );
 
+// Memoized loading component
+const MemoizedLoader = memo(Loader);
 
 const App = () => {
   const [loading, setLoading] = useState(true);
- 
 
   useEffect(() => {
-    // Simulate loading time - adjust duration as needed
+    // Remove artificial delay - let the app load naturally
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // 2 seconds
+    }, 100); // Minimal delay for smooth transition
 
     return () => clearTimeout(timer);
   }, []);
-   if (loading) return <Loader />;
+
+  if (loading) return <MemoizedLoader />;
 
   return (
-   <>
-  <Navbar />
-  <ScrollToTop />
+    <>
+      <Navbar />
+      <ScrollToTop />
 
-  <AnimatePresence mode="wait">
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/youtube" element={<YouTubeSection />} />
-        <Route path="/mobile-app" element={<MobileAppSection />} />
-        <Route path="/law" element={<LawAspirantsSection />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-service" element={<TermsOfService />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+      <AnimatePresence mode="wait">
+        <Suspense fallback={<div className="min-h-screen bg-black" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/youtube" element={<YouTubeSection />} />
+            <Route path="/mobile-app" element={<MobileAppSection />} />
+            <Route path="/law" element={<LawAspirantsSection />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
 
             <Route
               path="/admin"
@@ -91,18 +94,17 @@ const App = () => {
               <Route path="team" element={<AdminTeam />} />
               <Route path="team/add" element={<AddTeamMember />} />
             </Route>
+          </Routes>
+        </Suspense>
+      </AnimatePresence>
 
-      </Routes>
-    </Suspense>
-  </AnimatePresence>
+      <Suspense fallback={null}>
+        <FloatingWhatsApp />
+      </Suspense>
 
- <Suspense fallback={null}>
-  <FloatingWhatsApp />
-</Suspense>
-
-  <Footer />
-</>
+      <Footer />
+    </>
   );
 };
 
-export default App;
+export default memo(App);

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, Award, Scale } from "lucide-react";
 import { Link } from "react-router-dom";
+import OptimizedImage from "../Common/OptimizedImage";
 
 const programs = [
   {
@@ -13,7 +14,7 @@ const programs = [
   {
     icon: Award,
     title: "CUET UG / PG",
-    desc: "Focused preparation for India’s top central universities with structured guidance.",
+    desc: "Focused preparation for India's top central universities with structured guidance.",
     image: "/images/cuet.png",
     featured: true,
   },
@@ -25,7 +26,66 @@ const programs = [
   },
 ];
 
-export default function Programs() {
+// Memoized program card component
+const ProgramCard = memo(({ item, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.4, delay: index * 0.08 }}
+    whileHover={{ y: -6 }}
+    className={`rounded-2xl overflow-hidden border transition
+      ${item.featured
+        ? "border-yellow-400/40 bg-yellow-400/5"
+        : "border-white/10 bg-white/5 hover:border-yellow-400/30"
+      }`}
+  >
+    {/* Optimized Image */}
+    <div className="h-44 w-full overflow-hidden">
+      <OptimizedImage
+        src={item.image}
+        alt={`${item.title} - LearnLogix Program`}
+        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+        width={400}
+        height={176}
+        loading="lazy"
+      />
+    </div>
+
+    {/* Content */}
+    <div className="p-6">
+      <div className="w-12 h-12 rounded-xl
+                      flex items-center justify-center
+                      bg-yellow-400/10 text-yellow-400 mb-4">
+        <item.icon size={24} aria-hidden="true" />
+      </div>
+
+      <h3 className="text-lg font-semibold mb-2">
+        {item.title}
+      </h3>
+
+      <p className="text-sm text-gray-400 leading-relaxed">
+        {item.desc}
+      </p>
+      
+      <Link 
+        to="/courses" 
+        className={`inline-block mt-6 text-sm font-medium
+          ${item.featured
+            ? "text-yellow-400"
+            : "text-gray-300 hover:text-yellow-400"
+          } transition`}
+        aria-label={`Learn more about ${item.title} program`}
+      >
+        Learn More →
+      </Link>
+    </div>
+  </motion.div>
+));
+
+ProgramCard.displayName = 'ProgramCard';
+
+const Programs = memo(() => {
   return (
     <section className="bg-black text-white py-24">
       <div className="max-w-7xl mx-auto px-6">
@@ -56,57 +116,7 @@ export default function Programs() {
         {/* Cards */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {programs.map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className={`rounded-2xl overflow-hidden border transition
-                ${item.featured
-                  ? "border-yellow-400/40 bg-yellow-400/5"
-                  : "border-white/10 bg-white/5 hover:border-yellow-400/30"
-                }`}
-            >
-              {/* Image */}
-              <div className="h-44 w-full overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <div className="w-12 h-12 rounded-xl
-                                flex items-center justify-center
-                                bg-yellow-400/10 text-yellow-400 mb-4">
-                  <item.icon size={24} />
-                </div>
-
-                <h3 className="text-lg font-semibold mb-2">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  {item.desc}
-                </p>
-                <Link to="/courses">
-                <button
-                  className={`mt-6 text-sm font-medium
-                    ${item.featured
-                      ? "text-yellow-400"
-                      : "text-gray-300 hover:text-yellow-400"
-                    } transition`}
-                >
-                  Learn More →
-                </button>
-                </Link>
-              </div>
-            </motion.div>
+            <ProgramCard key={item.title} item={item} index={i} />
           ))}
         </div>
 
@@ -118,19 +128,24 @@ export default function Programs() {
           transition={{ delay: 0.2 }}
           className="text-center mt-14"
         >
-        <Link to="/courses">
-          <button
-            className="inline-flex items-center justify-center
-                       bg-yellow-400 text-black font-semibold
-                       px-8 py-4 rounded-xl
-                       hover:bg-yellow-500 transition
-                       shadow-md shadow-yellow-400/30"
-          >
-            Explore All Programs
-          </button>
-        </Link>
+          <Link to="/courses">
+            <button
+              className="inline-flex items-center justify-center
+                         bg-yellow-400 text-black font-semibold
+                         px-8 py-4 rounded-xl
+                         hover:bg-yellow-500 transition
+                         shadow-md shadow-yellow-400/30"
+              aria-label="Explore all LearnLogix programs"
+            >
+              Explore All Programs
+            </button>
+          </Link>
         </motion.div>
       </div>
     </section>
   );
-}
+});
+
+Programs.displayName = 'Programs';
+
+export default Programs;

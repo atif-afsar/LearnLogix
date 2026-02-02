@@ -24,10 +24,13 @@ const AdminProtectedRoute = ({ children }) => {
         if (res.ok) {
           setAuthorized(true);
         } else {
+          // Token expired or invalid
           localStorage.removeItem("adminToken");
+          console.log("Admin session expired. Please login again.");
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error("Auth check failed:", error);
         localStorage.removeItem("adminToken");
       })
       .finally(() => setLoading(false));

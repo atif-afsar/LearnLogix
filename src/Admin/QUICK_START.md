@@ -21,7 +21,7 @@ cd Frontend
 npm run dev
 ```
 
-The admin panel will be available at: `http://localhost:5173/admin`
+The admin panel will be available at: `https://learnlogix-frontend.vercel.app/admin`
 
 ### 3. Login Credentials
 
@@ -151,7 +151,7 @@ p-4 → p-6  // Slightly more padding
 
 **Solution**:
 1. Check if backend is running (`npm run dev` in Backend folder)
-2. Verify API URL: `http://localhost:5000` in component files
+2. Verify API URL: `https://learnlogix-backend.onrender.com` in component files
 3. Check browser console for errors (F12)
 4. Ensure you're logged in (token in localStorage)
 

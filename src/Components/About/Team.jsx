@@ -5,7 +5,7 @@ export default function MeetOurTeam() {
   const [teamMembers, setTeamMembers] = useState([]);
 
   useEffect(() => {
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://learnlogix-backend.onrender.com";
     fetch(`${API_BASE_URL}/api/team`)
       .then((res) => res.json())
       .then((data) => setTeamMembers(data))
