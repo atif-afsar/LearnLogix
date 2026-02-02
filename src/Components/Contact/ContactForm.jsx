@@ -13,62 +13,73 @@ const ContactForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (!formData.fullName || !formData.email || !formData.message) {
-    alert("Please fill all required fields");
-    return;
-  }
-
-  try {
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
-    const response = await fetch(`${API_BASE_URL}/api/contact`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: formData.fullName,
-        email: formData.email,
-        program: formData.program,
-        message: formData.message,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Request failed");
+    if (!formData.fullName || !formData.email || !formData.message) {
+      alert("Please fill all required fields");
+      return;
     }
 
     setIsSubmitted(true);
-setShowSuccessModal(true);
 
+    try {
+      const formDataToSend = new FormData();
+      
+      // Web3Forms access key - you'll need to get this from web3forms.com
+      formDataToSend.append("access_key", "e59e394e-1330-4c1b-a05c-7a006f7a3e2e");
+      
+      // Form data
+      formDataToSend.append("name", formData.fullName);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("program", formData.program || "Not specified");
+      formDataToSend.append("message", formData.message);
+      
+      // Additional fields for better organization
+      formDataToSend.append("subject", "New Contact Form Submission - LearnLogix");
+      formDataToSend.append("from_name", "LearnLogix Contact Form");
+      
+      // Add CC email for testing (optional)
+      // formDataToSend.append("cc", "your-backup-email@gmail.com");
+      
+      // Redirect URL after successful submission (optional)
+      formDataToSend.append("redirect", "false");
 
-   setTimeout(() => {
-  setIsSubmitted(false);
-  setShowSuccessModal(false);
-  setFormData({
-    fullName: "",
-    email: "",
-    program: "",
-    message: "",
-  });
-}, 3000);
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataToSend
+      });
 
+      const data = await response.json();
 
-  } catch (error) {
-    console.error("Frontend error:", error);
-    alert(error.message || "Something went wrong");
-  }
-}; 
+      if (data.success) {
+        setShowSuccessModal(true);
+        
+        // Reset form after delay
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setShowSuccessModal(false);
+          setFormData({
+            fullName: "",
+            email: "",
+            program: "",
+            message: "",
+          });
+        }, 3000);
+      } else {
+        throw new Error(data.message || "Form submission failed");
+      }
 
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setIsSubmitted(false);
+      alert(error.message || "Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <section className="bg-gradient-to-br from-gray-50 via-white to-gray-50 p-8 lg:p-16 relative overflow-hidden min-h-screen flex items-center">
@@ -93,7 +104,7 @@ setShowSuccessModal(true);
 
         {/* Form Card */}
         <div className="bg-white rounded-3xl shadow-2xl shadow-gray-200/50 p-8 lg:p-10 border border-gray-100">
-          <div className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name and Email Row */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="relative">
@@ -104,11 +115,13 @@ setShowSuccessModal(true);
                 <div className="relative">
                   <input
                     type="text"
+                    name="name"
                     placeholder="John Doe"
                     value={formData.fullName}
                     onChange={(e) => handleChange('fullName', e.target.value)}
                     onFocus={() => setFocusedField('fullName')}
                     onBlur={() => setFocusedField(null)}
+                    required
                     className={`w-full border-2 rounded-xl px-4 py-3.5 transition-all duration-300 bg-gray-50 ${
                       focusedField === 'fullName'
                         ? 'border-yellow-400 bg-white shadow-lg shadow-yellow-100 scale-105 -translate-y-1'
@@ -126,11 +139,13 @@ setShowSuccessModal(true);
                 <div className="relative">
                   <input
                     type="email"
+                    name="email"
                     placeholder="john@example.com"
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
                     onFocus={() => setFocusedField('email')}
                     onBlur={() => setFocusedField(null)}
+                    required
                     className={`w-full border-2 rounded-xl px-4 py-3.5 transition-all duration-300 bg-gray-50 ${
                       focusedField === 'email'
                         ? 'border-yellow-400 bg-white shadow-lg shadow-yellow-100 scale-105 -translate-y-1'
@@ -149,6 +164,7 @@ setShowSuccessModal(true);
               </label>
               <div className="relative">
                 <select
+                  name="program"
                   value={formData.program}
                   onChange={(e) => handleChange('program', e.target.value)}
                   onFocus={() => setFocusedField('program')}
@@ -180,12 +196,14 @@ setShowSuccessModal(true);
               </label>
               <div className="relative">
                 <textarea
+                  name="message"
                   rows="5"
                   placeholder="Tell us how we can help you achieve your academic goals..."
                   value={formData.message}
                   onChange={(e) => handleChange('message', e.target.value)}
                   onFocus={() => setFocusedField('message')}
                   onBlur={() => setFocusedField(null)}
+                  required
                   className={`w-full border-2 rounded-xl px-4 py-3.5 transition-all duration-300 bg-gray-50 resize-none ${
                     focusedField === 'message'
                       ? 'border-yellow-400 bg-white shadow-lg shadow-yellow-100 scale-105 -translate-y-1'
@@ -198,11 +216,11 @@ setShowSuccessModal(true);
             {/* Submit Button */}
             <div className="pt-4">
               <button
-                onClick={handleSubmit}
+                type="submit"
                 disabled={isSubmitted}
                 className={`group w-full font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-all duration-500 transform relative overflow-hidden ${
                   isSubmitted
-                    ? 'bg-gradient-to-r from-green-500 to-green-600 text-white scale-105'
+                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white cursor-wait'
                     : 'bg-gradient-to-r from-gray-900 to-black text-yellow-400 hover:from-yellow-400 hover:to-yellow-500 hover:text-black hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-yellow-200'
                 }`}
               >
@@ -210,8 +228,8 @@ setShowSuccessModal(true);
                 <span className="relative flex items-center gap-3">
                   {isSubmitted ? (
                     <>
-                      <CheckCircle2 size={22} className="animate-bounce" />
-                      MESSAGE SENT SUCCESSFULLY
+                      <CheckCircle2 size={22} className="animate-spin" />
+                      SENDING MESSAGE...
                     </>
                   ) : (
                     <>
@@ -234,7 +252,7 @@ setShowSuccessModal(true);
                 100% Secure
               </div>
             </div>
-          </div>
+          </form>
         </div>
 
         {/* Additional Info */}
@@ -253,30 +271,30 @@ setShowSuccessModal(true);
       </div>
 
       {showSuccessModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center">
-    {/* Backdrop */}
-    <div className="absolute inset-0 bg-black/40 backdrop-blur-md" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-md" />
 
-    {/* Modal */}
-    <div className="relative bg-white rounded-3xl p-10 w-[90%] max-w-md shadow-2xl animate-[scaleIn_0.4s_ease-out]">
-      
-      <div className="flex flex-col items-center text-center">
-        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
-          <CheckCircle2 size={42} className="text-green-600 animate-bounce" />
+          {/* Modal */}
+          <div className="relative bg-white rounded-3xl p-10 w-[90%] max-w-md shadow-2xl animate-[scaleIn_0.4s_ease-out]">
+            
+            <div className="flex flex-col items-center text-center">
+              <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
+                <CheckCircle2 size={42} className="text-green-600 animate-bounce" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                Message Sent 🎉
+              </h3>
+
+              <p className="text-gray-600">
+                Thanks for reaching out!  
+                Our team will contact you within <span className="font-semibold">24 hours</span>.
+              </p>
+            </div>
+          </div>
         </div>
-
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">
-          Message Sent 🎉
-        </h3>
-
-        <p className="text-gray-600">
-          Thanks for reaching out!  
-          Our team will contact you within <span className="font-semibold">24 hours</span>.
-        </p>
-      </div>
-    </div>
-  </div>
-)}
+      )}
 
     </section>
   );
