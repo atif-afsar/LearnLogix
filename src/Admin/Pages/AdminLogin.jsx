@@ -1,12 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../Services/adminAuth";
 import { Lock, Mail, AlertCircle, Loader } from "lucide-react";
+import { API_ADMIN_URL } from "../Services/api.js";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    const checkExistingAuth = async () => {
+      const token = localStorage.getItem("adminToken");
+      
+      if (!token) {
+        setCheckingAuth(false);
+        return;
+      }
+
+      // Verify token is still valid
+      try {
+        const response = await fetch(`${API_ADMIN_URL}/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          // Already authenticated, redirect to dashboard
+          navigate("/admin/dashboard", { replace: true });
+        } else {
+          // Token invalid, allow login
+          localStorage.removeItem("adminToken");
+          setCheckingAuth(false);
+        }
+      } catch (error) {
+        // Network error, allow login attempt
+        localStorage.removeItem("adminToken");
+        setCheckingAuth(false);
+      }
+    };
+
+    checkExistingAuth();
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,13 +55,22 @@ const AdminLogin = () => {
 
     try {
       await adminLogin(email, password);
-      window.location.href = "/admin/dashboard";
+      navigate("/admin/dashboard", { replace: true });
     } catch (err) {
       setError(err.message || "Invalid credentials. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+
+  // Show loading while checking existing auth
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 sm:p-6">

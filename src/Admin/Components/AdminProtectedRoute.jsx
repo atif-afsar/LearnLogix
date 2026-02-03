@@ -8,40 +8,55 @@ const AdminProtectedRoute = ({ children }) => {
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken");
+    const checkAuth = async () => {
+      const token = localStorage.getItem("adminToken");
 
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+      // If no token, immediately deny access
+      if (!token) {
+        setAuthorized(false);
+        setLoading(false);
+        return;
+      }
 
-    fetch(`${API_ADMIN_URL}/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
+      // Verify token with backend
+      try {
+        const response = await fetch(`${API_ADMIN_URL}/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
           setAuthorized(true);
         } else {
-          // Token expired or invalid
+          // Token expired or invalid - clear it and deny access
           localStorage.removeItem("adminToken");
-          console.log("Admin session expired. Please login again.");
+          setAuthorized(false);
         }
-      })
-      .catch((error) => {
+      } catch (error) {
+        // Network error or backend down - deny access for security
         console.error("Auth check failed:", error);
         localStorage.removeItem("adminToken");
-      })
-      .finally(() => setLoading(false));
+        setAuthorized(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
-  if (loading) return <Loader />;
- 
+  // Show loader while checking authentication
+  if (loading) {
+    return <Loader />;
+  }
+
+  // If not authorized, immediately redirect to login
   if (!authorized) {
     return <Navigate to="/admin/login" replace />;
   }
 
+  // Only render children if authorized
   return children;
 };
 

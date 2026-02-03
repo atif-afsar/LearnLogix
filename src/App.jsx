@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Navbar from "./Components/Common/Navbar";
@@ -87,6 +87,8 @@ const App = () => {
                 </AdminProtectedRoute>
               }
             >
+              {/* Default redirect for /admin to /admin/dashboard */}
+              <Route index element={<Navigate to="/admin/dashboard" replace />} />
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="courses" element={<AdminCourses />} />
               <Route path="courses/add" element={<AddCourse />} />
