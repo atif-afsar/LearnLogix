@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchJSONWithRetry } from "../../utils/fetchWithRetry";
 
 export default function CoursesList() {
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     let es;
 
     const fetchCourses = async () => {
       try {
-        setLoading(true);
-        setError(null);
         const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://learnlogix-backend.onrender.com";
         
-        // Use fetchWithRetry to handle backend sleep/wake scenarios
-        // Retry up to 4 times with exponential backoff
         const data = await fetchJSONWithRetry(
           `${API_BASE_URL}/api/courses`,
           {},
@@ -27,10 +21,7 @@ export default function CoursesList() {
         setCourses(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Failed to load courses", err);
-        setError("Unable to load courses. Please refresh the page.");
         setCourses([]);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -83,37 +74,9 @@ export default function CoursesList() {
   return (
     <section className="bg-black text-white py-12">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Loading State */}
-        {loading && (
-          <div className="text-center py-16">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-yellow-400 border-t-transparent"></div>
-            <p className="mt-4 text-zinc-400">Loading courses...</p>
-          </div>
-        )}
-
-        {/* Error State */}
-        {error && !loading && (
-          <div className="text-center py-16">
-            <p className="text-red-400 mb-4">{error}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-yellow-400 text-black rounded-lg font-semibold hover:bg-yellow-300 transition-colors"
-            >
-              Refresh Page
-            </button>
-          </div>
-        )}
-
-        {/* Courses Grid */}
-        {!loading && !error && (
-          <>
-            {!courses || courses.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-zinc-400">No courses available at the moment.</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {courses.map((course) => (
+        {/* Courses Grid - Always show courses */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {courses.map((course) => (
             <article key={course._id} className="bg-zinc-900 rounded-2xl p-4 border border-zinc-800">
               <div className="w-full h-44 mb-4 rounded-2xl overflow-hidden bg-zinc-800">
                 {course.image ? (
@@ -134,11 +97,8 @@ export default function CoursesList() {
                 </Link>
               </div>
             </article>
-                ))}
-              </div>
-            )}
-          </>
-        )}
+          ))}
+        </div>
       </div>
     </section>
   );

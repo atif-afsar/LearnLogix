@@ -1,34 +1,99 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fetchJSONWithRetry } from "../../utils/fetchWithRetry";
 
+// Default team members to show immediately (no loading)
+const defaultTeamMembers = [
+  {
+    _id: "default-9",
+    name: "Yasir Ali Sir",
+    role: "Accountancy",
+    experience: "10+ Years Experience",
+    image: "/images/team2.png"
+  },
+  {
+    _id: "default-1",
+    name: "Atif Sir",
+    role: "Economics",
+    experience: "8+ Years Experience",
+    image: "/images/team3.png"
+  },
+  {
+    _id: "default-6",
+    name: "Nida Ara Ma'am",
+    role: "English", 
+    experience: "8+ Years Experience",
+    image: "/images/team8.png"
+  },
+  {
+    _id: "default-2", 
+    name: "Fardeen Sir",
+    role: "Political Science",
+    experience: "7+ Years Experience",
+    image: "/images/team5.png"
+  },
+  {
+    _id: "default-3",
+    name: "Salman Sir",
+    role: "Geography & History", 
+    experience: "8+ Years Experience",
+    image: "/images/team1.png"
+  },
+  {
+    _id: "default-4",
+    name: "Azmi Sir",
+    role: "Logical Reasoning",
+    experience: "8+ Years Experience", 
+    image: "/images/team6.png"
+  },
+  {
+    _id: "default-5",
+    name: "Abdul Mabood Sir",
+    role: "Quantitative Aptitude",
+    experience: "9+ Years Experience",
+    image: "/images/team7.png"
+  },
+
+  {
+    _id: "default-7",
+    name: "Zaid Faruqui Sir",
+    role: "GK & GS",
+    experience: "8+ Years Experience",
+    image: "/images/team4.png"
+  },
+  {
+    _id: "default-8",
+    name: "Adv. Nasar Kazim Sir",
+    role: "LAW",
+    experience: "10+ Years Experience",
+    image: "/images/team9.png"
+  },
+ 
+];
+
 export default function MeetOurTeam() {
-  const [teamMembers, setTeamMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [teamMembers, setTeamMembers] = useState(defaultTeamMembers);
 
   useEffect(() => {
+    // Fetch API data in background and merge with defaults
     const fetchTeamMembers = async () => {
       try {
-        setLoading(true);
-        setError(null);
         const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://learnlogix-backend.onrender.com";
         
-        // Use fetchWithRetry to handle backend sleep/wake scenarios
-        // Retry up to 4 times with exponential backoff
         const data = await fetchJSONWithRetry(
           `${API_BASE_URL}/api/team`,
           {},
-          4 // 4 retries = 5 total attempts
+          2 // Reduced retries since we have fallback data
         );
         
-        setTeamMembers(Array.isArray(data) ? data : []);
+        if (Array.isArray(data) && data.length > 0) {
+          // Merge API data with defaults (defaults first, then API members)
+          // API members may not have experience field, which is handled by conditional rendering
+          setTeamMembers([...defaultTeamMembers, ...data]);
+        }
       } catch (err) {
-        console.error("Failed to load team:", err);
-        setError("Unable to load team members. Please refresh the page.");
-        setTeamMembers([]);
-      } finally {
-        setLoading(false);
+        console.error("Failed to load team from API, using defaults:", err);
+        // Keep using default team members on error
       }
     };
 
@@ -79,36 +144,9 @@ export default function MeetOurTeam() {
           </p>
         </motion.div>
 
-        {/* Loading State */}
-        {loading && (
-          <div className="text-center py-16">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-yellow-500 border-t-transparent"></div>
-            <p className="mt-4 text-zinc-400">Loading team members...</p>
-          </div>
-        )}
-
-        {/* Error State */}
-        {error && !loading && (
-          <div className="text-center py-16">
-            <p className="text-red-400 mb-4">{error}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-yellow-500 text-black rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
-            >
-              Refresh Page
-            </button>
-          </div>
-        )}
-
-        {/* Team Grid */}
-        {!loading && !error && (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {teamMembers.length === 0 ? (
-              <div className="col-span-full text-center py-16">
-                <p className="text-zinc-400">No team members available at the moment.</p>
-              </div>
-            ) : (
-              teamMembers.map((member, i) => (
+        {/* Team Grid - Always show team members */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {teamMembers.map((member, i) => (
             <motion.div
               key={member._id}
               initial={{ opacity: 0, y: 40 }}
@@ -187,10 +225,8 @@ export default function MeetOurTeam() {
                                 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               </div>
             </motion.div>
-              ))
-            )}
-          </div>
-        )}
+          ))}
+        </div>
 
         {/* Bottom accent */}
         <motion.div
